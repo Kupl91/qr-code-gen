@@ -151,15 +151,15 @@ END:VCARD`
             <QRCode
               value={generateVCardData()}
               size={256}
-              ecLevel="Q"
+              ecLevel="H"
               quietZone={10}
               id={qrCodeId}
               qrStyle="dots"
-              logoImage="/placeholder.svg"
+              logoImage="/main-logo.svg"
               logoWidth={24}
               logoHeight={24}
               removeQrCodeBehindLogo={true}
-              eyeRadius={50}
+              eyeRadius={1080}
               eyeColor={[
                 '#000000',
                 '#000000',
