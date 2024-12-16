@@ -152,12 +152,12 @@ END:VCARD`
               value={generateVCardData()}
               size={256}
               ecLevel="H"
-              quietZone={10}
+              quietZone={0}
               id={qrCodeId}
               qrStyle="dots"
               logoImage="/main-logo.svg"
-              logoWidth={24}
-              logoHeight={24}
+              logoWidth={48}
+              logoHeight={48}
               removeQrCodeBehindLogo={true}
               eyeRadius={1080}
               eyeColor={[
