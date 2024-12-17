@@ -1,17 +1,27 @@
+import "./globals.css"
 import localFont from "next/font/local"
 import { Providers } from './providers'
-import "./globals.css"
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+  src: [
+    {
+      path: '../shared/assets/fonts/GeistVF.woff',
+      weight: '100 900',
+      style: 'normal',
+    }
+  ],
+  variable: '--font-geist-sans',
 })
 
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff", 
-  variable: "--font-geist-mono",
-  weight: "100 900",
+  src: [
+    {
+      path: '../shared/assets/fonts/GeistMonoVF.woff',
+      weight: '100 900',
+      style: 'normal',
+    }
+  ],
+  variable: '--font-geist-mono',
 })
 
 export default function RootLayout({

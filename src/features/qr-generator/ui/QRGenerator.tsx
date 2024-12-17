@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { QRCode } from '@jackybaby/react-custom-qrcode'
 import { Button } from "@/shared/ui/button"
@@ -19,7 +19,9 @@ export function QRGenerator() {
   const dispatch = useDispatch()
   const { downloadQRCode } = useDownloadQR()
   
-  const { register, setValue, watch } = useForm<WorkerFormData>({
+  const [isDownloading, setIsDownloading] = useState(false)
+
+  const { register, setValue, watch, formState: { errors } } = useForm<WorkerFormData>({
     resolver: zodResolver(workerSchema),
     defaultValues: {
       firstname: '',
@@ -55,11 +57,20 @@ export function QRGenerator() {
   const formData = watch()
   const qrCodeId = "qr-code-canvas"
 
+  const handleDownload = async () => {
+    setIsDownloading(true)
+    try {
+      await downloadQRCode(qrCodeId)
+    } finally {
+      setIsDownloading(false)
+    }
+  }
+
   return (
-    <div className="container mx-auto p-4 grid md:grid-cols-2 gap-8">
-      <div className="space-y-4">
-        <Card className="p-6">
-          <div className="grid grid-cols-2 gap-4">
+    <div className="flex flex-col md:flex-row gap-8 p-4">
+      <Card className="flex-1">
+        <div className="p-6 space-y-6">
+          <div className="space-y-4">
             <div>
               <Label htmlFor="firstname">Имя</Label>
               <Input
@@ -118,11 +129,12 @@ export function QRGenerator() {
               />
             </div>
           </div>
-        </Card>
-      </div>
-      <div className="space-y-4">
-        <Card className="p-6">
-          <div className="flex justify-center mb-4">
+        </div>
+      </Card>
+
+      <Card className="flex-1">
+        <div className="p-6 space-y-6">
+          <div className="aspect-square relative">
             <QRCode
               value={generateVCard(formData)}
               size={256}
@@ -138,16 +150,18 @@ export function QRGenerator() {
               eyeColor={['#000000', '#000000', '#000000']}
               bgColor="#FFFFFF"
               fgColor="#000000"
-              style={{ height: 'auto', maxWidth: '100%', width: '100%' }}
+              style={{ width: '100%', height: '100%' }}
             />
           </div>
-          <div className="flex justify-center">
-            <Button onClick={() => downloadQRCode(qrCodeId)}>
-              Скачать PNG
-            </Button>
-          </div>
-        </Card>
-      </div>
+          <Button 
+            onClick={handleDownload} 
+            disabled={isDownloading}
+            className="w-full"
+          >
+            {isDownloading ? 'Скачивание...' : 'Скачать PNG'}
+          </Button>
+        </div>
+      </Card>
     </div>
   )
 } 

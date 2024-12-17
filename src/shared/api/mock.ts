@@ -1,6 +1,6 @@
 export const mockUserData = {
   organizationId: "org-123",
-  organizationName: "ООО Рога и Копыта",
+  organizationName: "ООО Бюро 1440",
   departmentId: "dep-456",
   departmentName: "IT Отдел",
   outerId: "out-789",
