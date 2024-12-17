@@ -15,5 +15,6 @@ export const mockUserData = {
   phone: "+7 (495) 123-45-67",
   dateHire: "2023-01-01",
   dateFire: null,
-  dateBirth: "1990-01-01"
+  dateBirth: "1990-01-01",
+  website: "https://1440.space/"
 } 

@@ -44,7 +44,7 @@ export function QRGenerator() {
       phoneWork: mockUserData.phone,
       phoneMobile: '',
       email: mockUserData.email,
-      website: ''
+      website: mockUserData.website
     }
     
     Object.entries(workerData).forEach(([key, value]) => {
