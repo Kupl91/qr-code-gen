@@ -24,6 +24,17 @@ const geistMono = localFont({
   variable: '--font-geist-mono',
 })
 
+const factFont = localFont({
+  src: [
+    {
+      path: '../shared/assets/fonts/FactVF.woff',
+      weight: '100 900',
+      style: 'normal',
+    }
+  ],
+  variable: '--font-fact'
+})
+
 export default function RootLayout({
   children,
 }: {
@@ -31,7 +42,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${factFont.variable} font-fact antialiased`}>
         <Providers>
           {children}
         </Providers>

@@ -54,13 +54,19 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+  			label: {
+  				text: 'rgba(169, 169, 178, 1)'
+  			},
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+  		fontFamily: {
+  			fact: ['var(--font-fact)'],
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],
