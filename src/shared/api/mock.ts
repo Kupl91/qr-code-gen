@@ -6,7 +6,7 @@ export const mockUserData = {
   outerId: "out-789",
   userId: "user-101",
   userADLogin: "ivanov",
-  email: "ivanov@example.com",
+  email: "i.ivanov@1440.space",
   positionName: "Старший разработчик",
   positionId: "pos-202",
   lastName: "Иванов",
