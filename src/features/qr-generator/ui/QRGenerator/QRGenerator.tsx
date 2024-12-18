@@ -49,7 +49,8 @@ export function QRGenerator() {
         />
       ) : (
         <QRCodePreview 
-          value={generateVCard(workerData || defaultValues)} 
+          value={generateVCard(workerData || defaultValues)}
+          data={workerData || defaultValues}
           onEdit={handleEdit}
         />
       )}
