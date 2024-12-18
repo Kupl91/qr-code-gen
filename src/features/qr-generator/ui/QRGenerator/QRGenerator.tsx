@@ -35,12 +35,17 @@ export function QRGenerator() {
     setIsEditing(false)
   }
 
+  const handleCancel = () => {
+    setIsEditing(false)
+  }
+
   return (
-    <div className="flex flex-col md:flex-row gap-8 p-4">
+    <div className="flex flex-col md:flex-row gap-8">
       {isEditing ? (
         <WorkerForm 
           defaultValues={workerData || defaultValues}
           onSave={handleSave}
+          onCancel={handleCancel}
         />
       ) : (
         <QRCodePreview 

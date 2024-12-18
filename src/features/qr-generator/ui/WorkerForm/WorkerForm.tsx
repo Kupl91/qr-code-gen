@@ -15,12 +15,13 @@ interface WorkerFormProps {
   defaultValues?: Partial<WorkerFormData>
   onValuesChange?: (values: WorkerFormData) => void
   onSave: (data: WorkerFormData) => void
+  onCancel: () => void
 }
 
-export function WorkerForm({ defaultValues, onValuesChange, onSave }: WorkerFormProps) {
+export function WorkerForm({ defaultValues, onValuesChange, onSave, onCancel }: WorkerFormProps) {
   const dispatch = useDispatch()
   
-  const { register, setValue, watch, handleSubmit } = useForm<WorkerFormData>({
+  const { register, setValue, watch, handleSubmit, formState: { isDirty } } = useForm<WorkerFormData>({
     resolver: zodResolver(workerSchema),
     defaultValues: defaultValues || {
       firstname: '',
@@ -88,9 +89,24 @@ export function WorkerForm({ defaultValues, onValuesChange, onSave }: WorkerForm
               <Input id="website" {...register('website')} />
             </div>
           </div>
-          <Button type="submit" className="w-full">
-            Сохранить
-          </Button>
+          <div className="flex gap-4">
+            {isDirty ? (
+              <Button 
+                type="submit" 
+                className="flex-1"
+              >
+                Сохранить
+              </Button>
+            ) : (
+              <Button 
+                type="button" 
+                onClick={onCancel}
+                className="flex-1"
+              >
+                Вернуться
+              </Button>
+            )}
+          </div>
         </div>
       </form>
     </Card>
