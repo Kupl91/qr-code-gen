@@ -1,0 +1,1 @@
+export { QRCodePreview } from './QRCodePreview' 

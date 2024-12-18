@@ -24,7 +24,7 @@ export interface WorkerInfo {
   organization: string
   position: string
   phoneWork: string
-  phoneMobile: string
+  phoneMobile?: string
   email: string
   website: string
 } 
