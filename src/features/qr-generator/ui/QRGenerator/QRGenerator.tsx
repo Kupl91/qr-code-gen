@@ -40,7 +40,7 @@ export function QRGenerator() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row gap-8">
+    <div className="flex flex-col md:flex-row gap-8 p-8">
       {isEditing ? (
         <WorkerForm 
           defaultValues={workerData || defaultValues}

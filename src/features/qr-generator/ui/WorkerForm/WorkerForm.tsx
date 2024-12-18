@@ -50,8 +50,8 @@ export function WorkerForm({ defaultValues, onValuesChange, onSave, onCancel }: 
   return (
     <Card className="flex-1">
       <form onSubmit={onSubmit}>
-        <div className="p-6 space-y-6">
-          <div className="space-y-4">
+        <div className="p-8 space-y-8">
+          <div className="space-y-5">
             <div className="space-y-[2px]">
               <Label htmlFor="firstname">Имя</Label>
               <Input id="firstname" {...register('firstname')} />
