@@ -1,36 +1,205 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# QR Code Generator
 
-## Getting Started
+Приложение для генерации QR-кодов с контактной информацией в формате vCard.
 
-First, run the development server:
+## Детальная структура проекта
+
+### App Layer (`src/app/`)
+Корневой уровень приложения, отвечающий за инициализацию и глобальные настройки.
+
+#### Основные файлы
+- `layout.tsx` - Корневой layout
+  - Настройка кастомных шрифтов Geist
+  - Подключение глобальных стилей
+  - Оборачивание приложения в провайдеры
+
+- `page.tsx` - Главная страница
+  - Монтирование основного виджета QRGeneratorWidget
+
+- `globals.css` - Глобальные стили
+  - Подключение Tailwind
+  - Глобальные CSS переменные
+
+#### Провайдеры (`src/app/providers/`)
+- `StoreProvider.tsx` - Redux провайдер
+  - Инициализация Redux store
+  - Типизация с помощью TypeScript
+
+- `Providers.tsx` - Композиционный провайдер
+  - Объединение всех провайдеров приложения
+
+#### Store (`src/app/store/`)
+- `store.ts` - Конфигурация Redux
+  - Подключение редьюсеров
+  - Типизация RootState и AppDispatch
+
+### Entities Layer (`src/entities/worker/`)
+Бизнес-сущности приложения.
+
+#### Worker Entity
+- `model/types.ts`
+  - Типизация данных работника (WorkerInfo)
+  - Схема валидации Zod (workerSchema)
+  - Типы для формы (WorkerFormData)
+
+- `model/slice.ts` - Redux slice работника
+  - Начальное состояние
+  - Редьюсеры для обновления данных
+  - Action creators
+
+### Features Layer (`src/features/qr-generator/`)
+Функциональные модули приложения.
+
+#### QR Generator Feature
+- `ui/QRGenerator/QRGenerator.tsx`
+  - Композиция WorkerForm и QRCodePreview
+  - Управление состоянием формы
+  - Передача данных между компонентами
+
+- `ui/WorkerForm/WorkerForm.tsx`
+  - Форма ввода данных работника
+  - Интеграция с React Hook Form
+  - Валидация через Zod
+  - Отправка данных в Redux
+
+- `ui/QRCodePreview/QRCodePreview.tsx`
+  - Отображение QR-кода
+  - Настройка внешнего вида QR-кода
+  - Функционал скачивания
+
+### Widgets Layer (`src/widgets/qr-generator/`)
+Композиционный слой для объединения фич.
+
+- `ui/QRGeneratorWidget.tsx`
+  - Контейнер для QRGenerator
+  - Настройка layout и отступов
+
+- `lib/generate-vcard.ts`
+  - Генерация vCard формата
+  - Форматирование данных работника
+
+### Shared Layer (`src/shared/`)
+Переиспользуемый код и утилиты.
+
+#### API (`src/shared/api/`)
+- `types.ts`
+  - Общие интерфейсы
+  - Типы данных API
+
+- `mock.ts`
+  - Моковые данные для разработки
+  - Имитация API ответов
+
+#### Библиотеки (`src/shared/lib/`)
+- `useDownloadQr.ts`
+  - Хук для скачивания QR-кода
+  - Конвертация canvas в PNG
+
+- `utils.ts`
+  - Утилиты для работы с классами
+  - Общие хелперы
+
+#### UI Компоненты (`src/shared/ui/`)
+Базовые компоненты интерфейса на основе shadcn/ui.
+
+- `button/`
+  - Кастомизируемая кнопка
+  - Варианты стилей
+  - Поддержка состояний
+
+- `input/`
+  - Поле ввода
+  - Интеграция с формами
+  - Стилизация состояний
+
+- `card/`
+  - Контейнер-карточка
+  - Составные части (header, content, footer)
+
+- `label/`
+  - Метка для полей ввода
+  - Доступность
+
+## Технологический стек
+
+### Фреймворки и библиотеки
+- **Next.js 14**
+  - App Router для маршрутизации
+  - Server Components
+  - Оптимизация изображений
+
+- **React 18**
+  - Hooks
+  - Concurrent режим
+
+### Управление состоянием
+- **Redux Toolkit**
+  - Централизованное хранилище
+  - TypeScript интеграция
+  - DevTools
+
+### Формы и валидация
+- **React Hook Form**
+  - Производительная работа с формами
+  - Контролируемые компоненты
+
+- **Zod**
+  - Типобезопасная валидация
+  - Интеграция с TypeScript
+
+### Стилизация
+- **Tailwind CSS**
+  - Утилитарные классы
+  - JIT компиляция
+  - Темизация
+
+- **shadcn/ui**
+  - Доступные компоненты
+  - Кастомизация через Tailwind
+  - Радикс примитивы
+
+### Разработка
+- **TypeScript**
+  - Строгая типизация
+  - Улучшенный DX
+  - Интеграция с IDE
+
+## Запуск проекта
 
 ```bash
+# Установка зависимостей
+npm install
+
+# Запуск в режиме разработки
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Сборка проекта
+npm run build
+
+# Запуск production версии
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте [http://localhost:3000](http://localhost:3000) в браузере.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Основной функционал
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Работа с формой
+- Ввод контактных данных
+- Валидация в реальном времени
+- Автозаполнение демо-данными
 
-## Learn More
+### 2. Генерация QR-кода
+- Форматирование в vCard
+- Кастомизация внешнего вида
+- Добавление логотипа
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Управление QR-кодом
+- Предпросмотр в реальном времени
+- Скачивание в формате PNG
+- Оптимизация качества
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. Дополнительные возможности
+- Адаптивный дизайн
+- Доступность (a11y)
+- Оптимизация производительности
