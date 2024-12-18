@@ -48,7 +48,38 @@ export function WorkerForm({ defaultValues, onValuesChange }: WorkerFormProps) {
             <Label htmlFor="firstname">Имя</Label>
             <Input id="firstname" {...register('firstname')} />
           </div>
-          {/* Остальные поля формы */}
+          <div>
+            <Label htmlFor="lastname">Фамилия</Label>
+            <Input id="lastname" {...register('lastname')} />
+          </div>
+          <div>
+            <Label htmlFor="organization">Организация</Label>
+            <Input id="organization" {...register('organization')} />
+          </div>
+          <div>
+            <Label htmlFor="position">Должность</Label>
+            <Input id="position" {...register('position')} />
+          </div>
+          <div>
+            <Label htmlFor="phoneWork">Рабочий телефон</Label>
+            <Input id="phoneWork" {...register('phoneWork')} />
+          </div>
+          <div>
+            <Label htmlFor="phoneMobile">Мобильный телефон</Label>
+            <Input id="phoneMobile" {...register('phoneMobile')} />
+          </div>
+          <div>
+            <Label htmlFor="email">Email</Label>
+            <Input 
+              id="email" 
+              type="email"
+              {...register('email')} 
+            />
+          </div>
+          <div>
+            <Label htmlFor="website">Веб-сайт</Label>
+            <Input id="website" {...register('website')} />
+          </div>
         </div>
       </div>
     </Card>

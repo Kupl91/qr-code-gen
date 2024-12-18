@@ -32,7 +32,7 @@ export function QRCodePreview({ value, logoUrl = "/main-logo.svg" }: QRCodePrevi
         <div className="aspect-square relative">
           <QRCode
             value={value}
-            size={512}
+            size={256}
             ecLevel="H"
             quietZone={0}
             id={qrCodeId}
