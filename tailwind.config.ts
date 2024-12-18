@@ -14,7 +14,7 @@ const config: Config = {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
-  				DEFAULT: 'hsl(var(--card))',
+  				DEFAULT: 'rgb(255, 255, 255)',
   				foreground: 'hsl(var(--card-foreground))'
   			},
   			popover: {
@@ -22,8 +22,8 @@ const config: Config = {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
+  				DEFAULT: 'rgba(72, 85, 203, 1)',
+  				foreground: 'rgb(255, 255, 255)'
   			},
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
@@ -42,7 +42,11 @@ const config: Config = {
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
   			border: 'hsl(var(--border))',
-  			input: 'hsl(var(--input))',
+  			input: {
+  				text: 'rgba(36, 36, 43, 1)',
+  				bg: 'rgba(249, 249, 251, 1)',
+  				focus: 'rgba(72, 85, 203, 1)'
+  			},
   			ring: 'hsl(var(--ring))',
   			chart: {
   				'1': 'hsl(var(--chart-1))',

@@ -52,11 +52,11 @@ export function WorkerForm({ defaultValues, onValuesChange, onSave, onCancel }: 
       <form onSubmit={onSubmit}>
         <div className="p-6 space-y-6">
           <div className="space-y-4">
-            <div>
+            <div className="space-y-[2px]">
               <Label htmlFor="firstname">Имя</Label>
               <Input id="firstname" {...register('firstname')} />
             </div>
-            <div>
+            <div className="space-y-[2px]">
               <Label htmlFor="lastname">Фамилия</Label>
               <Input id="lastname" {...register('lastname')} />
             </div>
