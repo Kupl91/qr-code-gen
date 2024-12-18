@@ -9,16 +9,18 @@ import { Label } from "@/shared/ui/label"
 import { Card } from "@/shared/ui/card"
 import { workerSchema, WorkerFormData } from '@/entities/worker/model/types'
 import { setWorkerData } from '@/entities/worker/model/slice'
+import { Button } from "@/shared/ui/button"
 
 interface WorkerFormProps {
   defaultValues?: Partial<WorkerFormData>
   onValuesChange?: (values: WorkerFormData) => void
+  onSave: (data: WorkerFormData) => void
 }
 
-export function WorkerForm({ defaultValues, onValuesChange }: WorkerFormProps) {
+export function WorkerForm({ defaultValues, onValuesChange, onSave }: WorkerFormProps) {
   const dispatch = useDispatch()
   
-  const { register, setValue, watch } = useForm<WorkerFormData>({
+  const { register, setValue, watch, handleSubmit } = useForm<WorkerFormData>({
     resolver: zodResolver(workerSchema),
     defaultValues: defaultValues || {
       firstname: '',
@@ -40,48 +42,57 @@ export function WorkerForm({ defaultValues, onValuesChange }: WorkerFormProps) {
     return () => subscription.unsubscribe()
   }, [watch, dispatch, onValuesChange])
 
+  const onSubmit = handleSubmit((data) => {
+    onSave(data)
+  })
+
   return (
     <Card className="flex-1">
-      <div className="p-6 space-y-6">
-        <div className="space-y-4">
-          <div>
-            <Label htmlFor="firstname">Имя</Label>
-            <Input id="firstname" {...register('firstname')} />
+      <form onSubmit={onSubmit}>
+        <div className="p-6 space-y-6">
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="firstname">Имя</Label>
+              <Input id="firstname" {...register('firstname')} />
+            </div>
+            <div>
+              <Label htmlFor="lastname">Фамилия</Label>
+              <Input id="lastname" {...register('lastname')} />
+            </div>
+            <div>
+              <Label htmlFor="organization">Организация</Label>
+              <Input id="organization" {...register('organization')} />
+            </div>
+            <div>
+              <Label htmlFor="position">Должность</Label>
+              <Input id="position" {...register('position')} />
+            </div>
+            <div>
+              <Label htmlFor="phoneWork">Рабочий телефон</Label>
+              <Input id="phoneWork" {...register('phoneWork')} />
+            </div>
+            <div>
+              <Label htmlFor="phoneMobile">Мобильный телефон</Label>
+              <Input id="phoneMobile" {...register('phoneMobile')} />
+            </div>
+            <div>
+              <Label htmlFor="email">Email</Label>
+              <Input 
+                id="email" 
+                type="email"
+                {...register('email')} 
+              />
+            </div>
+            <div>
+              <Label htmlFor="website">Веб-сайт</Label>
+              <Input id="website" {...register('website')} />
+            </div>
           </div>
-          <div>
-            <Label htmlFor="lastname">Фамилия</Label>
-            <Input id="lastname" {...register('lastname')} />
-          </div>
-          <div>
-            <Label htmlFor="organization">Организация</Label>
-            <Input id="organization" {...register('organization')} />
-          </div>
-          <div>
-            <Label htmlFor="position">Должность</Label>
-            <Input id="position" {...register('position')} />
-          </div>
-          <div>
-            <Label htmlFor="phoneWork">Рабочий телефон</Label>
-            <Input id="phoneWork" {...register('phoneWork')} />
-          </div>
-          <div>
-            <Label htmlFor="phoneMobile">Мобильный телефон</Label>
-            <Input id="phoneMobile" {...register('phoneMobile')} />
-          </div>
-          <div>
-            <Label htmlFor="email">Email</Label>
-            <Input 
-              id="email" 
-              type="email"
-              {...register('email')} 
-            />
-          </div>
-          <div>
-            <Label htmlFor="website">Веб-сайт</Label>
-            <Input id="website" {...register('website')} />
-          </div>
+          <Button type="submit" className="w-full">
+            Сохранить
+          </Button>
         </div>
-      </div>
+      </form>
     </Card>
   )
 } 

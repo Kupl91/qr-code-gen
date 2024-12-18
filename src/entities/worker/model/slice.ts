@@ -19,9 +19,16 @@ export const workerSlice = createSlice({
   reducers: {
     setWorkerData: (state, action: PayloadAction<WorkerInfo>) => {
       state.data = action.payload
+      state.error = null
+    },
+    setError: (state, action: PayloadAction<string>) => {
+      state.error = action.payload
+    },
+    clearError: (state) => {
+      state.error = null
     }
   }
 })
 
-export const { setWorkerData } = workerSlice.actions
+export const { setWorkerData, setError, clearError } = workerSlice.actions
 export default workerSlice.reducer 

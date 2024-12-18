@@ -9,22 +9,12 @@ import { useState } from 'react'
 interface QRCodePreviewProps {
   value: string
   logoUrl?: string
+  onEdit: () => void
 }
 
-export function QRCodePreview({ value, logoUrl = "/main-logo.svg" }: QRCodePreviewProps) {
+export function QRCodePreview({ value, logoUrl = "/main-logo.svg", onEdit }: QRCodePreviewProps) {
   const { downloadQRCode } = useDownloadQR()
-  const [isDownloading, setIsDownloading] = useState(false)
-  
   const qrCodeId = "qr-code-canvas"
-
-  const handleDownload = async () => {
-    setIsDownloading(true)
-    try {
-      await downloadQRCode(qrCodeId)
-    } finally {
-      setIsDownloading(false)
-    }
-  }
 
   return (
     <Card className="flex-1">
@@ -49,11 +39,10 @@ export function QRCodePreview({ value, logoUrl = "/main-logo.svg" }: QRCodePrevi
           />
         </div>
         <Button 
-          onClick={handleDownload} 
-          disabled={isDownloading}
+          onClick={onEdit} 
           className="w-full"
         >
-          {isDownloading ? 'Скачивание...' : 'Скачать PNG'}
+          Редактировать
         </Button>
       </div>
     </Card>
