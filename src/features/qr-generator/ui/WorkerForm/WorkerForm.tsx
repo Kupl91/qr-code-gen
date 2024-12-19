@@ -7,6 +7,7 @@ import { Input } from "@/shared/ui/input"
 import { Label } from "@/shared/ui/label"
 import { Card } from "@/shared/ui/card"
 import { Button } from "@/shared/ui/button"
+import { ArrowLeft } from "lucide-react"
 import { WorkerDTO, workerSchema } from '@/entities/worker'
 import type { WorkerFormProps } from '../../api/types'
 
@@ -26,9 +27,17 @@ export function WorkerForm({ defaultValues, onValuesChange, onSave, onCancel }: 
   }, [form, onValuesChange])
 
   return (
-    <Card className="w-full max-w-md p-6">
+    <Card className="w-full max-w-md p-6 relative">
+      <Button 
+        variant="ghost" 
+        className="absolute top-4 left-4 text-[rgb(72,85,203)] hover:bg-transparent hover:text-[rgb(72,85,203)]"
+        onClick={onCancel}
+      >
+        <ArrowLeft className="mr-2 h-4 w-4" />
+        Назад
+      </Button>
       <form onSubmit={form.handleSubmit(onSave)}>
-        <div className="space-y-4">
+        <div className="space-y-4 mt-8">
           <div className="space-y-5">
             <div className="space-y-[2px]">
               <Label htmlFor="firstname">Имя</Label>
@@ -68,10 +77,7 @@ export function WorkerForm({ defaultValues, onValuesChange, onSave, onCancel }: 
             </div>
           </div>
         </div>
-        <div className="flex justify-end gap-4 mt-6">
-          <Button variant="outline" onClick={onCancel}>
-            Отмена
-          </Button>
+        <div className="flex justify-end mt-6">
           <Button type="submit">
             Сохранить
           </Button>
