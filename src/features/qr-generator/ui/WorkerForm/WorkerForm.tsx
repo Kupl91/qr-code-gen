@@ -8,24 +8,28 @@ import { Label } from "@/shared/ui/label"
 import { Card } from "@/shared/ui/card"
 import { Button } from "@/shared/ui/button"
 import { ArrowLeft } from "lucide-react"
-import { WorkerDTO, workerSchema } from '@/entities/worker'
+import { WorkerDTO, workerSchema, workerActions } from '@/entities/worker'
 import type { WorkerFormProps } from '../../api/types'
 import { cn } from "@/shared/lib/utils"
+import { useAppDispatch } from '@/shared/lib/hooks/redux'
 
-export function WorkerForm({ defaultValues, onValuesChange, onSave, onCancel }: WorkerFormProps) {
+export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps) {
+  const dispatch = useAppDispatch()
   const form = useForm<WorkerDTO>({
     resolver: zodResolver(workerSchema),
     defaultValues
   })
 
-  useEffect(() => {
-    if (onValuesChange) {
-      const subscription = form.watch((value) => {
-        onValuesChange(value as WorkerDTO)
-      })
-      return () => subscription.unsubscribe()
+  const handleFormChange = form.watch((data) => {
+    if (data) {
+      dispatch(workerActions.setWorkerData(data as WorkerDTO))
     }
-  }, [form, onValuesChange])
+  })
+
+  useEffect(() => {
+    const subscription = handleFormChange
+    return () => subscription.unsubscribe()
+  }, [handleFormChange])
 
   return (
     <Card className="w-full p-8 relative sm:max-w-[320px] md:max-w-[400px] lg:max-w-[480px]">

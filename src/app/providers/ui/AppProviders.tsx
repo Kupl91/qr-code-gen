@@ -1,6 +1,6 @@
 'use client'
 
-import { StoreProvider } from '../../store-provider'
+import { StoreProvider } from '../store'
 import { ReactNode } from 'react'
 
 interface AppProvidersProps {

@@ -1,8 +1,8 @@
 'use client'
 
 import { Provider } from 'react-redux'
-import { store } from '@/shared/config/store'
-import { ReactNode } from 'react'
+import { store } from '../config/store'
+import type { ReactNode } from 'react'
 
 interface StoreProviderProps {
   children: ReactNode

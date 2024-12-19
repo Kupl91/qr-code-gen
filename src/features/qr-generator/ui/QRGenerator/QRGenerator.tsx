@@ -3,17 +3,15 @@
 import { useState } from 'react'
 import { WorkerForm } from '../WorkerForm'
 import { QRCodePreview } from '../QRCodePreview'
-import { WorkerDTO } from '@/entities/worker'
+import { WorkerDTO, workerActions, selectWorkerData } from '@/entities/worker'
 import { mockWorkerData } from '@/shared/api/mocks/worker'
 import { useQRGeneration } from '../../model/hooks/useQRGeneration'
-import { useDispatch, useSelector } from 'react-redux'
-import { setWorkerData } from '@/entities/worker'
-import { selectWorkerData } from '@/entities/worker'
+import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks/redux'
 
 export function QRGenerator() {
   const [isEditing, setIsEditing] = useState(false)
-  const dispatch = useDispatch()
-  const workerData = useSelector(selectWorkerData)
+  const dispatch = useAppDispatch()
+  const workerData = useAppSelector(selectWorkerData)
   const { generateVCard } = useQRGeneration()
 
   const handleEdit = () => {
@@ -21,7 +19,7 @@ export function QRGenerator() {
   }
 
   const handleSave = (data: WorkerDTO) => {
-    dispatch(setWorkerData(data))
+    dispatch(workerActions.setWorkerData(data))
     setIsEditing(false)
   }
 

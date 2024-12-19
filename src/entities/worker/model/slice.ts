@@ -1,11 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { WorkerDTO } from '../api/types'
-
-interface WorkerState {
-  data: WorkerDTO | null
-  loading: boolean
-  error: string | null
-}
+import type { WorkerState } from '../api/types'
 
 const initialState: WorkerState = {
   data: null,
@@ -13,15 +8,23 @@ const initialState: WorkerState = {
   error: null
 }
 
-const workerSlice = createSlice({
+export const workerSlice = createSlice({
   name: 'worker',
   initialState,
   reducers: {
     setWorkerData: (state, action: PayloadAction<WorkerDTO>) => {
       state.data = action.payload
+      state.error = null
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload
+    },
+    setError: (state, action: PayloadAction<string>) => {
+      state.error = action.payload
+      state.loading = false
     }
   }
 })
 
-export const { setWorkerData } = workerSlice.actions
-export const workerReducer = workerSlice.reducer 
+export const { actions: workerActions } = workerSlice
+export const { reducer: workerReducer } = workerSlice 

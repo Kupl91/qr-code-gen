@@ -1,4 +1,4 @@
-import { RootState } from '@/shared/config/store'
+import type { RootState } from '@/app/providers/store'
 
 export const selectWorkerData = (state: RootState) => state.worker.data
 export const selectWorkerLoading = (state: RootState) => state.worker.loading

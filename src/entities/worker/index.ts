@@ -1,5 +1,5 @@
-export type { WorkerDTO } from './api/types'
+export type { WorkerDTO, WorkerState } from './api/types'
 export { workerSchema } from './api/types'
 export { WorkerInfo } from './ui/WorkerInfo'
-export { workerReducer, setWorkerData } from './model/slice'
-export { selectWorkerData } from './model/selectors' 
+export { workerReducer, workerActions } from './model/slice'
+export { selectWorkerData, selectWorkerLoading, selectWorkerError } from './model/selectors' 
