@@ -1,1 +1,1 @@
-export { useDownloadQR } from './useDownloadQR' 
+export { useDownloadQR } from './useDownloadQr' 

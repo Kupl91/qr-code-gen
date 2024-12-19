@@ -3,9 +3,8 @@
 import { Card } from "@/shared/ui/card"
 import { Button } from "@/shared/ui/button"
 import { WorkerInfo } from "@/entities/worker"
-import { WorkerDTO } from '@/entities/worker'
 import { QRCode } from '@jackybaby/react-custom-qrcode'
-import { useDownloadQR } from "@/shared/lib/hooks/useDownloadQr"
+import { useDownloadQR } from "@/shared/lib/hooks"
 import type { QRCodePreviewProps } from '../../api/types'
 
 export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
