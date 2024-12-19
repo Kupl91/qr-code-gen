@@ -93,6 +93,11 @@ const config: Config = {
   			'fluid-base': 'clamp(1rem, 1.5vw, 1.125rem)',
   			'fluid-lg': 'clamp(1.125rem, 2vw, 1.25rem)',
   		},
+  		size: {
+  			'qr-sm': 'clamp(256px, 70vw, 280px)',
+  			'qr-md': 'clamp(280px, 60vw, 320px)', 
+  			'qr-lg': 'clamp(320px, 50vw, 360px)',
+  		}
   	}
   },
   plugins: [require("tailwindcss-animate")],

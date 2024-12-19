@@ -1,5 +1,9 @@
 import { QRGeneratorWidget } from "@/widgets/qr-generator"
 
 export default function Page() {
-  return <QRGeneratorWidget />
+  return (
+    <main className="min-h-screen flex items-center justify-center">
+      <QRGeneratorWidget />
+    </main>
+  )
 } 
