@@ -15,7 +15,6 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   const [isLogoLoaded, setIsLogoLoaded] = useState(false)
 
   useEffect(() => {
-    // Предварительная загрузка логотипа
     const logo = new Image()
     logo.src = "/main-logo.svg"
     logo.onload = () => setIsLogoLoaded(true)
@@ -42,21 +41,17 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
     return () => window.removeEventListener('resize', updateSize)
   }, [])
 
-  const logoSize = Math.floor(qrSize * 0.15)
-
   const qrConfig = {
     value,
     size: qrSize,
     ecLevel: "M" as const,
-    quietZone: 10,
+    quietZone: 0,
     id: qrCodeId,
     qrStyle: "dots" as const,
     logoImage: isLogoLoaded ? "/main-logo.svg" : undefined,
-    logoWidth: logoSize,
-    logoHeight: logoSize,
+    logoWidth: 56,
+    logoHeight: 40,
     removeQrCodeBehindLogo: true,
-    logoPadding: 5,
-    logoOpacity: 1,
     eyeRadius: 1080,
     eyeColor: ['#000000', '#000000', '#000000'],
     bgColor: "#FFFFFF",
@@ -72,7 +67,7 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
         </div>
         
         {/* QR код */}
-        <div className="w-full mb-8 -ml-4">
+        <div className="w-full mb-8">
           <div 
             className="w-full aspect-square cursor-pointer
               hover:opacity-90 transition-opacity"
