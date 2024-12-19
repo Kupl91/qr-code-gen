@@ -1,1 +1,1 @@
- 
+export { QRGeneratorWidget } from './ui/QRGeneratorWidget/QRGeneratorWidget' 

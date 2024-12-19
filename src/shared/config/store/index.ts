@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import workerReducer from '@/entities/worker/model/slice'
+import { workerReducer } from '@/entities/worker'
 
 export const store = configureStore({
   reducer: {

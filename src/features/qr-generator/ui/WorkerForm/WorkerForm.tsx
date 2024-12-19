@@ -3,110 +3,78 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 import { Input } from "@/shared/ui/input"
 import { Label } from "@/shared/ui/label"
 import { Card } from "@/shared/ui/card"
-import { workerSchema, WorkerFormData } from '@/entities/worker/model/types'
-import { setWorkerData } from '@/entities/worker/model/slice'
 import { Button } from "@/shared/ui/button"
-
-interface WorkerFormProps {
-  defaultValues?: Partial<WorkerFormData>
-  onValuesChange?: (values: WorkerFormData) => void
-  onSave: (data: WorkerFormData) => void
-  onCancel: () => void
-}
+import { WorkerDTO, workerSchema } from '@/entities/worker'
+import type { WorkerFormProps } from '../../api/types'
 
 export function WorkerForm({ defaultValues, onValuesChange, onSave, onCancel }: WorkerFormProps) {
-  const dispatch = useDispatch()
-  
-  const { register, setValue, watch, handleSubmit, formState: { isDirty } } = useForm<WorkerFormData>({
+  const form = useForm<WorkerDTO>({
     resolver: zodResolver(workerSchema),
-    defaultValues: defaultValues || {
-      firstname: '',
-      lastname: '',
-      organization: '',
-      position: '',
-      phoneWork: '',
-      phoneMobile: '',
-      email: '',
-      website: ''
-    }
+    defaultValues
   })
 
   useEffect(() => {
-    const subscription = watch((value) => {
-      onValuesChange?.(value as WorkerFormData)
-      dispatch(setWorkerData(value as WorkerFormData))
-    })
-    return () => subscription.unsubscribe()
-  }, [watch, dispatch, onValuesChange])
-
-  const onSubmit = handleSubmit((data) => {
-    onSave(data)
-  })
+    if (onValuesChange) {
+      const subscription = form.watch((value) => {
+        onValuesChange(value as WorkerDTO)
+      })
+      return () => subscription.unsubscribe()
+    }
+  }, [form, onValuesChange])
 
   return (
-    <Card className="flex-1">
-      <form onSubmit={onSubmit}>
-        <div className="p-8 space-y-8">
+    <Card className="w-full max-w-md p-6">
+      <form onSubmit={form.handleSubmit(onSave)}>
+        <div className="space-y-4">
           <div className="space-y-5">
             <div className="space-y-[2px]">
               <Label htmlFor="firstname">Имя</Label>
-              <Input id="firstname" {...register('firstname')} />
+              <Input id="firstname" {...form.register('firstname')} />
             </div>
             <div className="space-y-[2px]">
               <Label htmlFor="lastname">Фамилия</Label>
-              <Input id="lastname" {...register('lastname')} />
+              <Input id="lastname" {...form.register('lastname')} />
             </div>
             <div>
               <Label htmlFor="organization">Организация</Label>
-              <Input id="organization" {...register('organization')} />
+              <Input id="organization" {...form.register('organization')} />
             </div>
             <div>
               <Label htmlFor="position">Должность</Label>
-              <Input id="position" {...register('position')} />
+              <Input id="position" {...form.register('position')} />
             </div>
             <div>
               <Label htmlFor="phoneWork">Рабочий телефон</Label>
-              <Input id="phoneWork" {...register('phoneWork')} />
+              <Input id="phoneWork" {...form.register('phoneWork')} />
             </div>
             <div>
               <Label htmlFor="phoneMobile">Мобильный телефон</Label>
-              <Input id="phoneMobile" {...register('phoneMobile')} />
+              <Input id="phoneMobile" {...form.register('phoneMobile')} />
             </div>
             <div>
               <Label htmlFor="email">Email</Label>
               <Input 
                 id="email" 
                 type="email"
-                {...register('email')} 
+                {...form.register('email')} 
               />
             </div>
             <div>
               <Label htmlFor="website">Веб-сайт</Label>
-              <Input id="website" {...register('website')} />
+              <Input id="website" {...form.register('website')} />
             </div>
           </div>
-          <div className="flex gap-4">
-            {isDirty ? (
-              <Button 
-                type="submit" 
-                className="flex-1"
-              >
-                Сохранить
-              </Button>
-            ) : (
-              <Button 
-                type="button" 
-                onClick={onCancel}
-                className="flex-1"
-              >
-                Вернуться
-              </Button>
-            )}
-          </div>
+        </div>
+        <div className="flex justify-end gap-4 mt-6">
+          <Button variant="outline" onClick={onCancel}>
+            Отмена
+          </Button>
+          <Button type="submit">
+            Сохранить
+          </Button>
         </div>
       </form>
     </Card>

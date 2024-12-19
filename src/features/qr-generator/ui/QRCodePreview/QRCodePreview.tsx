@@ -2,16 +2,11 @@
 
 import { Card } from "@/shared/ui/card"
 import { Button } from "@/shared/ui/button"
-import { WorkerInfo } from "@/entities/worker/ui/WorkerInfo/WorkerInfo"
-import { WorkerFormData } from "@/entities/worker/model/types"
+import { WorkerInfo } from "@/entities/worker"
+import { WorkerDTO } from '@/entities/worker'
 import { QRCode } from '@jackybaby/react-custom-qrcode'
-import { useDownloadQR } from "@/shared/lib/useDownloadQr"
-
-interface QRCodePreviewProps {
-  value: string
-  data: WorkerFormData
-  onEdit: () => void
-}
+import { useDownloadQR } from "@/shared/lib/hooks/useDownloadQr"
+import type { QRCodePreviewProps } from '../../api/types'
 
 export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   const { downloadQRCode } = useDownloadQR()

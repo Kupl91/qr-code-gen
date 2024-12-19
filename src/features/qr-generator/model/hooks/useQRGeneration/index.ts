@@ -1,0 +1,1 @@
+export { useQRGeneration } from './useQRGeneration' 

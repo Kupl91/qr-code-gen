@@ -1,39 +1,6 @@
 import "./globals.css"
-import localFont from "next/font/local"
-import { Providers } from './providers'
-
-const geistSans = localFont({
-  src: [
-    {
-      path: '../shared/assets/fonts/GeistVF.woff',
-      weight: '100 900',
-      style: 'normal',
-    }
-  ],
-  variable: '--font-geist-sans',
-})
-
-const geistMono = localFont({
-  src: [
-    {
-      path: '../shared/assets/fonts/GeistMonoVF.woff',
-      weight: '100 900',
-      style: 'normal',
-    }
-  ],
-  variable: '--font-geist-mono',
-})
-
-const factFont = localFont({
-  src: [
-    {
-      path: '../shared/assets/fonts/FactVF.woff',
-      weight: '100 900',
-      style: 'normal',
-    }
-  ],
-  variable: '--font-fact'
-})
+import { AppProviders } from '@/shared/lib/providers'
+import { factFont, geistSans, geistMono } from '@/shared/config/fonts'
 
 export default function RootLayout({
   children,
@@ -42,10 +9,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${factFont.variable} font-fact antialiased`}>
-        <Providers>
-          {children}
-        </Providers>
+      <body 
+        className={`${factFont.variable} ${geistSans.variable} ${geistMono.variable} font-fact antialiased`}
+      >
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   )
