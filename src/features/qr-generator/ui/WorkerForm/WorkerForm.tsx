@@ -10,6 +10,7 @@ import { Button } from "@/shared/ui/button"
 import { ArrowLeft } from "lucide-react"
 import { WorkerDTO, workerSchema } from '@/entities/worker'
 import type { WorkerFormProps } from '../../api/types'
+import { cn } from "@/shared/lib/utils"
 
 export function WorkerForm({ defaultValues, onValuesChange, onSave, onCancel }: WorkerFormProps) {
   const form = useForm<WorkerDTO>({
@@ -27,97 +28,124 @@ export function WorkerForm({ defaultValues, onValuesChange, onSave, onCancel }: 
   }, [form, onValuesChange])
 
   return (
-    <Card className="w-full p-fluid-1 relative
-      sm:max-w-[320px] md:max-w-[400px] lg:max-w-[480px]">
+    <Card className="w-full p-8 relative sm:max-w-[320px] md:max-w-[400px] lg:max-w-[480px]">
       <Button 
         variant="ghost" 
-        className="absolute top-fluid-1 left-fluid-1"
         onClick={onCancel}
+        className={cn(
+          "absolute top-6 left-6 p-0 hover:bg-transparent",
+          "text-[rgb(72,85,203)] hover:text-[rgb(72,85,203)]",
+          "flex items-center gap-2"
+        )}
       >
-        <ArrowLeft className="mr-2 h-4 w-4" />
-        Назад
+        <ArrowLeft className="w-4 h-4 stroke-[rgb(72,85,203)]" />
+        <span className="-ml-1">Назад</span>
       </Button>
 
-      <form onSubmit={form.handleSubmit(onSave)} className="mt-fluid-2">
-        <div className="space-y-fluid-1">
-          <div className="space-y-2">
-            <Label className="text-fluid-sm" htmlFor="firstname">
+      <form onSubmit={form.handleSubmit(onSave)} className="mt-14">
+        <div className="space-y-5">
+          <div className="space-y-[2px]">
+            <Label 
+              htmlFor="firstname"
+              className="text-[12px] leading-[16px] font-medium text-label-text"
+            >
               Имя
             </Label>
             <Input 
               id="firstname"
-              className="text-fluid-base"
+              className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('firstname')} 
             />
           </div>
-          <div className="space-y-2">
-            <Label className="text-fluid-sm" htmlFor="lastname">
+          <div className="space-y-[2px]">
+            <Label 
+              htmlFor="lastname"
+              className="text-[12px] leading-[16px] font-medium text-label-text"
+            >
               Фамилия
             </Label>
             <Input 
               id="lastname"
-              className="text-fluid-base"
+              className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('lastname')} 
             />
           </div>
-          <div>
-            <Label className="text-fluid-sm" htmlFor="organization">
+          <div className="space-y-[2px]">
+            <Label 
+              htmlFor="organization"
+              className="text-[12px] leading-[16px] font-medium text-label-text"
+            >
               Организация
             </Label>
             <Input 
               id="organization"
-              className="text-fluid-base"
+              className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('organization')} 
             />
           </div>
-          <div>
-            <Label className="text-fluid-sm" htmlFor="position">
+          <div className="space-y-[2px]">
+            <Label 
+              htmlFor="position"
+              className="text-[12px] leading-[16px] font-medium text-label-text"
+            >
               Должность
             </Label>
             <Input 
               id="position"
-              className="text-fluid-base"
+              className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('position')} 
             />
           </div>
-          <div>
-            <Label className="text-fluid-sm" htmlFor="phoneWork">
+          <div className="space-y-[2px]">
+            <Label 
+              htmlFor="phoneWork"
+              className="text-[12px] leading-[16px] font-medium text-label-text"
+            >
               Рабочий телефон
             </Label>
             <Input 
               id="phoneWork"
-              className="text-fluid-base"
+              className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('phoneWork')} 
             />
           </div>
-          <div>
-            <Label className="text-fluid-sm" htmlFor="phoneMobile">
+          <div className="space-y-[2px]">
+            <Label 
+              htmlFor="phoneMobile"
+              className="text-[12px] leading-[16px] font-medium text-label-text"
+            >
               Мобильный телефон
             </Label>
             <Input 
               id="phoneMobile"
-              className="text-fluid-base"
+              className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('phoneMobile')} 
             />
           </div>
-          <div>
-            <Label className="text-fluid-sm" htmlFor="email">
+          <div className="space-y-[2px]">
+            <Label 
+              htmlFor="email"
+              className="text-[12px] leading-[16px] font-medium text-label-text"
+            >
               Email
             </Label>
             <Input 
               id="email"
-              className="text-fluid-base"
+              className="text-[16px] leading-[20px] font-normal text-input-text"
               type="email"
               {...form.register('email')} 
             />
           </div>
-          <div>
-            <Label className="text-fluid-sm" htmlFor="website">
+          <div className="space-y-[2px]">
+            <Label 
+              htmlFor="website"
+              className="text-[12px] leading-[16px] font-medium text-label-text"
+            >
               Веб-сайт
             </Label>
             <Input 
               id="website"
-              className="text-fluid-base"
+              className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('website')} 
             />
           </div>
