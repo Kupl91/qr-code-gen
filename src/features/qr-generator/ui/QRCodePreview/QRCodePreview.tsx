@@ -64,16 +64,15 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   }
 
   return (
-    <Card className="w-full flex flex-col p-fluid-2 
-      sm:max-w-[320px] md:max-w-[400px] lg:max-w-[480px]">
-      <div className="w-full flex flex-col gap-fluid-2">
+    <Card className="w-full sm:max-w-[320px] md:max-w-[400px] lg:max-w-[480px]">
+      <div className="w-full flex flex-col px-8 pt-8 pb-6">
         {/* Информация о сотруднике */}
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center mb-8">
           <WorkerInfo data={data} />
         </div>
         
         {/* QR код */}
-        <div className="w-full flex justify-center">
+        <div className="w-full mb-8 -ml-4">
           <div 
             className="w-full aspect-square cursor-pointer
               hover:opacity-90 transition-opacity"
@@ -90,7 +89,7 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
         <div className="w-full flex justify-center">
           <Button 
             onClick={onEdit} 
-            className="w-full sm:max-w-[280px]"
+            className="w-full"
           >
             Редактировать
           </Button>
