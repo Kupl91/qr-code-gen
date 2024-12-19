@@ -1,2 +1,2 @@
-export type { WorkerDTO, WorkerInfo } from './types'
+export type { WorkerDTO } from '@/entities/worker'
 export { mockWorkerData } from './mocks/worker' 
