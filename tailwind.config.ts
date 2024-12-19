@@ -9,6 +9,22 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+  	container: {
+  		center: true,
+  		padding: {
+  			DEFAULT: '1rem',
+  			sm: '2rem',
+  			lg: '4rem',
+  			xl: '5rem',
+  		},
+  		screens: {
+  			sm: '640px',    // Mobile
+  			md: '768px',    // Tablet
+  			lg: '1024px',   // Small Desktop
+  			xl: '1280px',   // Desktop
+  			'2xl': '1536px' // Large Desktop
+  		},
+  	},
   	extend: {
   		colors: {
   			background: 'hsl(var(--background))',
@@ -66,6 +82,16 @@ const config: Config = {
   		},
   		fontFamily: {
   			fact: ['var(--font-fact)'],
+  		},
+  		spacing: {
+  			'fluid-1': 'clamp(1rem, 2vw, 2rem)',
+  			'fluid-2': 'clamp(1.5rem, 3vw, 3rem)',
+  			'fluid-3': 'clamp(2rem, 4vw, 4rem)',
+  		},
+  		fontSize: {
+  			'fluid-sm': 'clamp(0.875rem, 1vw, 1rem)',
+  			'fluid-base': 'clamp(1rem, 1.5vw, 1.125rem)',
+  			'fluid-lg': 'clamp(1.125rem, 2vw, 1.25rem)',
   		},
   	}
   },

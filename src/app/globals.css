@@ -47,6 +47,22 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
+
+  html {
+    font-size: 16px; /* Base font size */
+  }
+
+  @screen sm {
+    html {
+      font-size: calc(14px + 0.5vw);
+    }
+  }
+
+  @screen lg {
+    html {
+      font-size: calc(16px + 0.5vw);
+    }
+  }
 }
 
 @layer base {
