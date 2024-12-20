@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Генератор QR-кодов с контактной информацией сотрудников",
-  "author": "Your Name",
+  "author": "Pavel Molchanov",
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
