@@ -83,6 +83,11 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
               className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('firstname')} 
             />
+            {form.formState.errors.firstname && (
+              <span className="text-destructive text-sm">
+                {form.formState.errors.firstname.message}
+              </span>
+            )}
           </div>
           <div className="space-y-[2px]">
             <Label 
@@ -96,6 +101,11 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
               className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('lastname')} 
             />
+            {form.formState.errors.lastname && (
+              <span className="text-destructive text-sm">
+                {form.formState.errors.lastname.message}
+              </span>
+            )}
           </div>
           <div className="space-y-[2px]">
             <Label 
@@ -109,6 +119,11 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
               className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('organization')} 
             />
+            {form.formState.errors.organization && (
+              <span className="text-destructive text-sm">
+                {form.formState.errors.organization.message}
+              </span>
+            )}
           </div>
           <div className="space-y-[2px]">
             <Label 
@@ -122,6 +137,11 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
               className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('position')} 
             />
+            {form.formState.errors.position && (
+              <span className="text-destructive text-sm">
+                {form.formState.errors.position.message}
+              </span>
+            )}
           </div>
           <div className="space-y-[2px]">
             <Label 
@@ -135,6 +155,11 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
               className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('phoneWork')} 
             />
+            {form.formState.errors.phoneWork && (
+              <span className="text-destructive text-sm">
+                {form.formState.errors.phoneWork.message}
+              </span>
+            )}
           </div>
           <div className="space-y-[2px]">
             <Label 
@@ -148,6 +173,11 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
               className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('phoneMobile')} 
             />
+            {form.formState.errors.phoneMobile && (
+              <span className="text-destructive text-sm">
+                {form.formState.errors.phoneMobile.message}
+              </span>
+            )}
           </div>
           <div className="space-y-[2px]">
             <Label 
@@ -162,6 +192,11 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
               type="email"
               {...form.register('email')} 
             />
+            {form.formState.errors.email && (
+              <span className="text-destructive text-sm">
+                {form.formState.errors.email.message}
+              </span>
+            )}
           </div>
           <div className="space-y-[2px]">
             <Label 
@@ -175,6 +210,11 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
               className="text-[16px] leading-[20px] font-normal text-input-text"
               {...form.register('website')} 
             />
+            {form.formState.errors.website && (
+              <span className="text-destructive text-sm">
+                {form.formState.errors.website.message}
+              </span>
+            )}
           </div>
         </div>
         <div className="flex justify-end mt-6">

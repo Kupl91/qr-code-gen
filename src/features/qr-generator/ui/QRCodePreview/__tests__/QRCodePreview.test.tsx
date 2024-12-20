@@ -1,11 +1,20 @@
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import { QRCodePreview } from '../QRCodePreview'
-import { useDownloadQR } from "@/shared/lib/hooks"
 import { mockWorkerData } from '@/shared/api/mocks/worker'
+import { useDownloadQR } from '@/shared/lib/hooks/useDownloadQr'
 
-// Мокаем хук для скачивания
-jest.mock("@/shared/lib/hooks", () => ({
+// Мокаем QR-код компонент полностью
+jest.mock('@jackybaby/react-custom-qrcode', () => ({
+  QRCode: ({ value, options }: { value: string; options?: any }) => (
+    <div data-testid="qr-code" data-value={value}>
+      <canvas id="qr-code-canvas" />
+      QR Code Mock
+    </div>
+  )
+}))
+
+jest.mock('@/shared/lib/hooks/useDownloadQr', () => ({
   useDownloadQR: jest.fn()
 }))
 
@@ -23,17 +32,19 @@ describe('QRCodePreview', () => {
     jest.clearAllMocks()
   })
 
-  it('отображает информацию о работнике', () => {
-    render(
-      <QRCodePreview
-        value="BEGIN:VCARD..."
-        data={mockWorkerData}
-        onEdit={mockOnEdit}
-      />
-    )
+  it('отображает информацию о работнике', async () => {
+    await act(async () => {
+      render(
+        <QRCodePreview
+          value="BEGIN:VCARD..."
+          data={mockWorkerData}
+          onEdit={mockOnEdit}
+        />
+      )
+    })
 
-    expect(screen.getByText(mockWorkerData.firstname)).toBeInTheDocument()
-    expect(screen.getByText(mockWorkerData.lastname)).toBeInTheDocument()
+    expect(screen.getByText(new RegExp(mockWorkerData.firstname))).toBeInTheDocument()
+    expect(screen.getByText(new RegExp(mockWorkerData.lastname))).toBeInTheDocument()
   })
 
   it('вызывает функцию скачивания при клике на QR-код', () => {
@@ -45,8 +56,8 @@ describe('QRCodePreview', () => {
       />
     )
 
-    const qrCodeContainer = screen.getByRole('img', { name: /qr code/i })
-    fireEvent.click(qrCodeContainer)
+    const qrCode = screen.getByTestId('qr-code')
+    fireEvent.click(qrCode)
     
     expect(mockDownloadQR).toHaveBeenCalledWith('qr-code-canvas')
   })

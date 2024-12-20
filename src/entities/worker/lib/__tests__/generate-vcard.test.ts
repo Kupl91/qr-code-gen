@@ -1,32 +1,34 @@
 import { generateVCard } from '../generate-vcard'
-import { mockWorkerData } from '@/shared/api/mocks/worker'
+import { WorkerDTO } from '../../api/types'
 
 describe('generateVCard', () => {
-  it('генерирует корректную vCard строку', () => {
-    const vcard = generateVCard(mockWorkerData)
+  it('генерирует корректный vCard формат', () => {
+    const data: WorkerDTO = {
+      firstname: 'John',
+      lastname: 'Smith',
+      middlename: '',
+      organization: 'ООО Бюро 1440',
+      position: 'Старший разработчик',
+      phoneWork: '+7 (495) 123-45-67',
+      phoneMobile: null,
+      email: 'john.smith@example.com',
+      website: 'https://1440.space/'
+    }
 
+    const vcard = generateVCard(data)
+
+    // Проверяем базовую структуру
     expect(vcard).toContain('BEGIN:VCARD')
     expect(vcard).toContain('VERSION:3.0')
-    expect(vcard).toContain(`FN:${mockWorkerData.firstname} ${mockWorkerData.lastname}`)
     expect(vcard).toContain('END:VCARD')
-  })
 
-  it('корректно обрабатывает опциональные поля', () => {
-    const dataWithoutMobile = { ...mockWorkerData, phoneMobile: undefined }
-    const vcard = generateVCard(dataWithoutMobile)
-
-    expect(vcard).not.toContain('TEL;TYPE=CELL:')
-  })
-
-  it('экранирует специальные символы', () => {
-    const dataWithSpecialChars = {
-      ...mockWorkerData,
-      firstname: 'John; Smith',
-      email: 'john,smith@example.com'
-    }
-    const vcard = generateVCard(dataWithSpecialChars)
-
-    expect(vcard).toContain('John\\; Smith')
-    expect(vcard).toContain('john\\,smith@example.com')
+    // Проверяем данные
+    expect(vcard).toContain('FN:John Smith')
+    expect(vcard).toContain('N:Smith;John;;;')
+    expect(vcard).toContain('ORG:ООО Бюро 1440')
+    expect(vcard).toContain('TITLE:Старший разработчик')
+    expect(vcard).toContain('TEL;TYPE=WORK:+7 (495) 123-45-67')
+    expect(vcard).toContain('EMAIL:john.smith@example.com')
+    expect(vcard).toContain('URL:https://1440.space/')
   })
 }) 

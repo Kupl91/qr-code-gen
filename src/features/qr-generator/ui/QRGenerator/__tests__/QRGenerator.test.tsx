@@ -4,6 +4,11 @@ import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import { workerReducer } from '@/entities/worker'
 
+// Мокаем QRCode компонент
+jest.mock('@jackybaby/react-custom-qrcode', () => ({
+  QRCode: () => <div data-testid="qr-code">QR Code Mock</div>
+}))
+
 describe('QRGenerator', () => {
   const store = configureStore({
     reducer: {
