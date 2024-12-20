@@ -6,7 +6,7 @@ import { useDownloadQR } from '@/shared/lib/hooks/useDownloadQr'
 
 // Мокаем QR-код компонент полностью
 jest.mock('@jackybaby/react-custom-qrcode', () => ({
-  QRCode: ({ value, options }: { value: string; options?: any }) => (
+  QRCode: ({ value, options }: { value: string; options?: QRCodeOptions }) => (
     <div data-testid="qr-code" data-value={value}>
       <canvas id="qr-code-canvas" />
       QR Code Mock
@@ -17,6 +17,18 @@ jest.mock('@jackybaby/react-custom-qrcode', () => ({
 jest.mock('@/shared/lib/hooks/useDownloadQr', () => ({
   useDownloadQR: jest.fn()
 }))
+
+interface QRCodeOptions {
+  width: number;
+  height: number;
+  type: string;
+  quality: number;
+  margin: number;
+  color: {
+    dark: string;
+    light: string;
+  };
+}
 
 describe('QRCodePreview', () => {
   const mockOnEdit = jest.fn()

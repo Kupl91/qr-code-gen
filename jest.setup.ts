@@ -1,8 +1,9 @@
-import '@testing-library/jest-dom' 
+import '@testing-library/jest-dom'
+import 'jest-canvas-mock'
 
 // Более полный мок для Canvas API
 const mockContext2D = {
-  fillStyle: '',
+  fillStyle: '#000000',
   fillRect: jest.fn(),
   clearRect: jest.fn(),
   getImageData: jest.fn(),
@@ -17,18 +18,38 @@ const mockContext2D = {
   translate: jest.fn(),
   transform: jest.fn(),
   beginPath: jest.fn(),
-  closePath: jest.fn(),
   moveTo: jest.fn(),
   lineTo: jest.fn(),
-  arc: jest.fn(),
   stroke: jest.fn(),
-  fill: jest.fn()
+  fill: jest.fn(),
+} as unknown as CanvasRenderingContext2D;
+
+window.HTMLCanvasElement.prototype.getContext = function(contextId: string) {
+  if (contextId === '2d') {
+    return mockContext2D;
+  }
+  return null;
+} as any;
+
+window.HTMLCanvasElement.prototype.toDataURL = function() {
+  return 'data:image/png;base64,fake';
+};
+
+// Мок для Image
+class MockImage {
+  onload: (() => void) | null = null;
+  src: string = '';
+  
+  constructor() {
+    setTimeout(() => {
+      if (this.onload) {
+        this.onload();
+      }
+    });
+  }
 }
 
-window.HTMLCanvasElement.prototype.getContext = function() {
-  return mockContext2D
-}
-window.HTMLCanvasElement.prototype.toDataURL = () => 'data:image/png;base64,fake'
+global.Image = MockImage as any;
 
 // Мокаем URL API
 window.URL.createObjectURL = jest.fn()
