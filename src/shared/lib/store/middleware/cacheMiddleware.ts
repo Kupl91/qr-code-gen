@@ -1,5 +1,6 @@
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
 import { workerActions } from '@/entities/worker'
+import type { RootState } from '@/app/providers/store/config/store'
 
 const CACHE_KEY = 'qr-generator-cache'
 const CACHE_EXPIRATION = 24 * 60 * 60 * 1000 // 24 часа
@@ -10,7 +11,7 @@ export const cacheMiddleware = createListenerMiddleware()
 cacheMiddleware.startListening({
   matcher: isAnyOf(workerActions.setWorkerData),
   effect: (action, listenerApi) => {
-    const state = listenerApi.getState()
+    const state = listenerApi.getState() as RootState
     const cache = {
       data: state.worker,
       timestamp: Date.now()

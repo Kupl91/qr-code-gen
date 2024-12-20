@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from '@/shared/config/store'
+import type { RootState } from '@/app/providers/store/config/store'
 import type { WorkerDTO } from '../api/types'
 
 interface WorkerState {
