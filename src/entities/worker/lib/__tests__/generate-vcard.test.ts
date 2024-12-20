@@ -6,11 +6,10 @@ describe('generateVCard', () => {
     const data: WorkerDTO = {
       firstname: 'John',
       lastname: 'Smith',
-      middlename: '',
       organization: 'ООО Бюро 1440',
       position: 'Старший разработчик',
       phoneWork: '+7 (495) 123-45-67',
-      phoneMobile: null,
+      phoneMobile: undefined,
       email: 'john.smith@example.com',
       website: 'https://1440.space/'
     }
