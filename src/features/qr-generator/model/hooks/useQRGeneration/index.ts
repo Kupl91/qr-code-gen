@@ -1,1 +1,0 @@
-export { useQRGeneration } from './useQRGeneration' 
