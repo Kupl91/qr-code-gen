@@ -1,3 +1,12 @@
+/**
+ * Компонент формы редактирования данных работника
+ * 
+ * Использует React Hook Form для управления формой и Zod для валидации.
+ * Интегрируется с Redux для сохранения данных.
+ * 
+ * @module features/qr-generator/ui/WorkerForm
+ */
+
 'use client'
 
 import { useForm } from 'react-hook-form'
@@ -13,6 +22,20 @@ import type { WorkerFormProps } from '../../api/types'
 import { cn } from "@/shared/lib/utils"
 import { useAppDispatch } from '@/shared/lib/hooks/redux'
 
+/**
+ * Компонент WorkerForm
+ * 
+ * @component
+ * @param {WorkerFormProps} props - Пропсы компонента
+ * @example
+ * return (
+ *   <WorkerForm
+ *     defaultValues={initialData}
+ *     onSave={handleSave}
+ *     onCancel={handleCancel}
+ *   />
+ * )
+ */
 export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps) {
   const dispatch = useAppDispatch()
   const form = useForm<WorkerDTO>({

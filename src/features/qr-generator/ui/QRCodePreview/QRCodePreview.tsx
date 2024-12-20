@@ -1,3 +1,12 @@
+/**
+ * Компонент предпросмотра QR-кода
+ * 
+ * Отображает сгенерированный QR-код с данными работника и предоставляет
+ * возможность скачивания кода в формате PNG.
+ * 
+ * @module features/qr-generator/ui/QRCodePreview
+ */
+
 'use client'
 
 import { Card } from "@/shared/ui/card"
@@ -8,6 +17,20 @@ import { useDownloadQR } from "@/shared/lib/hooks"
 import type { QRCodePreviewProps } from '../../api/types'
 import { useEffect, useState } from 'react'
 
+/**
+ * Компонент QRCodePreview
+ * 
+ * @component
+ * @param {QRCodePreviewProps} props - Пропсы компонента
+ * @example
+ * return (
+ *   <QRCodePreview
+ *     value={vCardString}
+ *     data={workerData}
+ *     onEdit={handleEdit}
+ *   />
+ * )
+ */
 export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   const { downloadQRCode } = useDownloadQR()
   const qrCodeId = "qr-code-canvas"

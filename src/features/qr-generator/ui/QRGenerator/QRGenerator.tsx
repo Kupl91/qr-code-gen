@@ -1,3 +1,12 @@
+/**
+ * Основной компонент генератора QR-кодов
+ * 
+ * Управляет состоянием редактирования данных работника и отображением QR-кода.
+ * Интегрируется с Redux store для хранения данных.
+ * 
+ * @module features/qr-generator/ui/QRGenerator
+ */
+
 'use client'
 
 import { useState } from 'react'
@@ -12,20 +21,40 @@ import {
 import { mockWorkerData } from '@/shared/api/mocks/worker'
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks/redux'
 
+/**
+ * Компонент QRGenerator
+ * 
+ * @component
+ * @example
+ * return (
+ *   <QRGenerator />
+ * )
+ */
 export function QRGenerator() {
+  // Состояние режима редактирования
   const [isEditing, setIsEditing] = useState(false)
   const dispatch = useAppDispatch()
   const workerData = useAppSelector(selectWorkerData)
 
+  /**
+   * Обработчик включения режима редактирования
+   */
   const handleEdit = () => {
     setIsEditing(true)
   }
 
+  /**
+   * Обработчик сохранения данных работника
+   * @param {WorkerDTO} data - Новые данные работника
+   */
   const handleSave = (data: WorkerDTO) => {
     dispatch(workerActions.setWorkerData(data))
     setIsEditing(false)
   }
 
+  /**
+   * Обработчик отмены редактирования
+   */
   const handleCancel = () => {
     setIsEditing(false)
   }
