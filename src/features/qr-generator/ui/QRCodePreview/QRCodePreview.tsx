@@ -16,6 +16,7 @@ import { QRCode } from '@jackybaby/react-custom-qrcode'
 import { useDownloadQR } from "@/shared/lib/hooks"
 import type { QRCodePreviewProps } from '../../api/types'
 import { useEffect, useState } from 'react'
+import { Avatar, AvatarFallback } from "@/shared/ui/avatar"
 
 /**
  * Компонент QRCodePreview
@@ -82,37 +83,89 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   }
 
   return (
-    <Card className="w-full sm:max-w-[320px] md:max-w-[400px] lg:max-w-[480px]">
-      <div className="w-full flex flex-col px-8 pt-8 pb-6">
-        {/* Информация о сотруднике */}
-        <div className="w-full flex justify-center mb-8">
-          <WorkerInfo data={data} />
-        </div>
-        
-        {/* QR код */}
-        <div className="w-full mb-8">
-          <div 
-            className="w-full aspect-square cursor-pointer
-              hover:opacity-90 transition-opacity"
-            style={{
-              maxWidth: `${qrSize}px`,
-            }}
-            onClick={() => downloadQRCode(qrCodeId)}
-          >
-            <QRCode {...qrConfig} />
-          </div>
-        </div>
+    <div className="relative w-[476px]">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10">
+        <Avatar className="h-[64px] w-[64px]">
+          <AvatarFallback className="text-[24px]">
+            {`${data.firstname[0]}${data.lastname[0]}`.toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
+      </div>
 
-        {/* Кнопка редактирования */}
-        <div className="w-full flex justify-center">
+      <Card className="
+        w-full
+        min-h-[618px]
+        bg-white 
+        rounded-[32px_32px_32px_32px]
+        mt-[32px]
+        flex flex-col
+        items-center
+      ">
+        <div className="
+          w-full 
+          flex flex-col 
+          items-center 
+          pt-[48px]
+          px-0
+          gap-[24px]
+        ">
+          <div className="text-center">
+            <div className="
+              text-[20px]
+              leading-[24px]
+              font-fact
+              font-medium
+              text-[rgb(36,36,43)]
+              mb-[4px]
+            ">
+              {data.firstname} {data.lastname}
+            </div>
+            <div className="
+              text-[20px]
+              leading-[24px]
+              font-fact
+              font-normal
+              text-[rgb(169,169,178)]
+              text-left
+            ">
+              {data.email}
+            </div>
+          </div>
+          
+          <div className="w-full flex justify-center">
+            <div 
+              className="aspect-square cursor-pointer hover:opacity-90 transition-opacity"
+              style={{
+                width: `${qrSize}px`,
+              }}
+              onClick={() => downloadQRCode(qrCodeId)}
+            >
+              <QRCode {...qrConfig} />
+            </div>
+          </div>
+
           <Button 
             onClick={onEdit} 
-            className="w-full"
+            style={{ width: `${qrSize}px` }}
+            className="
+              h-[44px]
+              px-[24px]
+              py-[12px]
+              gap-[6px]
+              font-fact
+              text-[14px]
+              leading-[20px]
+              font-medium
+              text-left
+              bg-[#4855CB]
+              hover:bg-[#3A45A3]
+              rounded-[8px]
+            "
           >
-            Редактировать
+            Редактировать личные данные
           </Button>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </div>
   )
 } 

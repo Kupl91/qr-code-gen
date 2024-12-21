@@ -24,6 +24,52 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
+    --form-width: 580px;
+    --form-height: 904px;
+    --form-padding: 24px;
+    --form-gap: 16px;
+    --form-bg: #FFFFFF;
+    --form-radius: 8px;
+    --form-border-color: #E3E4E8;
+    --form-text-color: #1A1B22;
+    --form-label-color: #A9A9B2;
+    --form-placeholder-color: #898989;
+    --form-primary-color: #4855CB;
+    --form-primary-hover: #3A45A3;
+    --form-input-height: 36px;
+    --form-input-bg: #F9F9FB;
+    --form-bg-opacity: 1;
+    --form-top-offset: 40px;
+    --form-left-offset: 430px;
+    --back-btn-gap: 4px;
+    --back-btn-height: 16px;
+    --back-btn-padding-x: 0;
+    --back-btn-padding-y: 0;
+    --back-btn-font-size: 12px;
+    --back-btn-line-height: 16px;
+    --back-btn-color: rgb(72, 85, 203);
+    --back-btn-hover-color: rgb(72, 85, 203);
+    --back-btn-icon-size: 16px;
+    --back-btn-font-family: 'Fact VF', sans-serif;
+    --back-btn-font-weight: 500;
+    --back-btn-text-width: 41px;
+    --back-btn-text-decoration-skip-ink: none;
+    --form-header-height: 72px;
+    --form-error-color: #F33A3A;
+    --form-input-radius: 4px;
+    --form-button-width: 100px;
+    --form-button-height: 36px;
+    --back-btn-top-offset: -32px;
+    --heading-color: rgb(36, 36, 41);
+    --back-button-color: rgb(72, 85, 203);
+    --preview-width: 360px;
+    --preview-padding: 24px;
+    --preview-avatar-size: 64px;
+    --preview-name-size: 16px;
+    --preview-email-size: 14px;
+    --preview-button-height: 36px;
+    --preview-border-radius: 8px;
+    --card-radius: 32px;
   }
  
   .dark {
@@ -63,6 +109,14 @@
       font-size: calc(16px + 0.5vw);
     }
   }
+
+  @media (max-width: 1024px) {
+    :root {
+      --form-width: 100%;
+      --form-padding: 20px;
+      --form-top-offset: 0;
+    }
+  }
 }
 
 @layer base {
@@ -72,4 +126,93 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer components {
+  .form-container {
+    @apply absolute bg-white shadow-lg;
+    width: var(--form-width);
+    top: var(--form-top-offset);
+    border-radius: var(--form-input-radius);
+    overflow: hidden;
+  }
+
+  .form-layout {
+    @apply space-y-[var(--form-gap)] p-[40px];
+  }
+
+  .form-header {
+    @apply border-b relative;
+    border-color: var(--form-border-color);
+    height: var(--form-header-height);
+  }
+
+  .form-title {
+    @apply text-[20px] leading-[24px] font-medium whitespace-nowrap;
+    color: var(--form-text-color);
+    padding: 0 var(--form-padding);
+    height: var(--form-header-height);
+    line-height: var(--form-header-height);
+  }
+
+  .form-submit-button {
+    width: var(--form-button-width);
+    height: var(--form-button-height);
+    background-color: var(--form-primary-color);
+    color: white;
+    font-weight: 500;
+    border-radius: var(--form-input-radius);
+    transition: background-color 0.2s;
+  }
+
+  .form-submit-button:hover {
+    background-color: var(--form-primary-hover);
+  }
+
+  .back-link-button {
+    @apply flex items-center absolute;
+    top: 26px;
+    left: var(--form-padding);
+    height: var(--back-btn-height);
+    gap: var(--back-btn-gap);
+    font-size: var(--back-btn-font-size);
+    line-height: var(--back-btn-line-height);
+    color: var(--back-btn-color);
+    font-family: var(--back-btn-font-family);
+    font-weight: var(--back-btn-font-weight);
+    text-underline-position: from-font;
+    text-decoration-skip-ink: var(--back-btn-text-decoration-skip-ink);
+  }
+
+  .back-link-button:hover {
+    @apply bg-transparent;
+    color: var(--back-btn-color);
+    opacity: 0.8;
+  }
+
+  .back-link-icon {
+    width: var(--back-btn-icon-size);
+    height: var(--back-btn-icon-size);
+    stroke: var(--back-btn-color);
+  }
+
+  .back-link-text {
+    width: var(--back-btn-text-width);
+    height: var(--back-btn-height);
+    gap: 0;
+    text-align: left;
+  }
+
+  .form-wrapper {
+    @apply relative min-h-screen w-full flex justify-center;
+    padding-top: var(--form-top-offset);
+  }
+}
+
+@font-face {
+  font-family: 'Fact VF';
+  src: url('/fonts/FactVF.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
