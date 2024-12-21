@@ -9,7 +9,7 @@
 
 'use client'
 
-import { useForm } from 'react-hook-form'
+import { useForm, UseFormReturn } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
 import { Input } from "@/shared/ui/input"
@@ -142,7 +142,7 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
 interface FormFieldProps {
   label: string;
   name: keyof WorkerDTO;
-  form: any; // Можно типизировать точнее через UseFormReturn<WorkerDTO>
+  form: UseFormReturn<WorkerDTO>;
 }
 
 function FormField({ label, name, form }: FormFieldProps) {
