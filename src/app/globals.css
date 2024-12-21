@@ -70,6 +70,28 @@
     --preview-button-height: 36px;
     --preview-border-radius: 8px;
     --card-radius: 32px;
+    --preview-container-width: 476px;
+    --preview-card-min-height: 618px;
+    --preview-card-radius: 32px;
+    --preview-avatar-size: 64px;
+    --preview-avatar-text: 24px;
+    --preview-content-spacing: 24px;
+    --preview-content-padding-top: 48px;
+    --preview-title-size: 20px;
+    --preview-title-line: 24px;
+    --preview-button-text: 14px;
+    --preview-button-line: 20px;
+    --preview-text-primary: rgb(36,36,43);
+    --preview-text-secondary: rgb(169,169,178);
+    --preview-button-primary: #4855CB;
+    --preview-button-hover: #3A45A3;
+    --qr-size-default: 256px;
+    --qr-size-sm: 280px;
+    --qr-size-md: 320px;
+    --qr-size-lg: 360px;
+    --qr-breakpoint-sm: 640px;
+    --qr-breakpoint-md: 768px;
+    --qr-breakpoint-lg: 1024px;
   }
  
   .dark {
