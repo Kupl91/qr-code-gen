@@ -95,10 +95,9 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
         w-full
         min-h-[618px]
         bg-white 
-        rounded-[32px_32px_32px_32px]
-        mt-[32px]
         flex flex-col
         items-center
+        mt-[32px]
       ">
         <div className="
           w-full 

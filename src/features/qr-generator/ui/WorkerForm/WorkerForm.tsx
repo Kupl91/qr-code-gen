@@ -68,7 +68,14 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
           </span>
         </Button>
 
-        <Card className="flex flex-col items-start p-[24px] gap-[16px] w-full bg-white rounded-[var(--card-radius)]">
+        <Card className="
+          flex flex-col 
+          items-start 
+          p-[24px] 
+          gap-[16px] 
+          w-full 
+          bg-white
+        ">
           <div className="flex flex-col w-full">
             <div className="mb-[16px]">
               <h1 className="text-[24px] leading-[32px] font-medium text-[rgb(36,36,41)]">
