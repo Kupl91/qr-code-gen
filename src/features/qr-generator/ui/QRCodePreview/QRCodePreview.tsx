@@ -35,7 +35,7 @@ import { cn } from "@/shared/lib/utils"
 export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   const { downloadQRCode } = useDownloadQR()
   const qrCodeId = "qr-code-canvas"
-  const [qrSize, setQrSize] = useState(200)
+  const [qrSize, setQrSize] = useState(320)
   const [isLogoLoaded, setIsLogoLoaded] = useState(false)
 
   useEffect(() => {
@@ -47,14 +47,14 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   useEffect(() => {
     const updateSize = () => {
       const width = window.innerWidth
-      let newSize = 200
+      let newSize = 320
 
       if (width >= 1024) {
-        newSize = 360
+        newSize = 400
       } else if (width >= 768) {
-        newSize = 320
-      } else if (width >= 640) {
-        newSize = 280
+        newSize = 360
+      } else if (width >= 390) {
+        newSize = 340
       }
 
       setQrSize(newSize)
@@ -88,9 +88,9 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
       "h-screen",
       "relative",
       "flex flex-col",
-      "pt-[32px]",
-      "pb-[24px]",
-      "sm:pt-[96px]",
+      "pt-[24px]",
+      "pb-[16px]",
+      "sm:pt-[64px]",
     )}>
       <div className={cn(
         "w-full",
@@ -101,17 +101,18 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
         "md:max-w-[580px]",
         "flex-1",
       )}>
-        <div className="relative flex flex-col items-center h-full gap-[16px]">
+        <div className="relative flex flex-col items-center h-full gap-[12px]">
           <Card className={cn(
             "w-full",
             "min-h-[420px]",
-            "sm:min-h-[540px]",
+            "sm:min-h-[480px]",
             "bg-white",
             "rounded-[32px]",
             "shadow-sm",
             "overflow-visible",
             "relative",
             "flex flex-col",
+            "pb-4",
           )}>
             <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 z-10">
               <Avatar className="h-[64px] w-[64px]">
@@ -127,8 +128,8 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
               "pt-[32px]",
               "px-4",
               "sm:px-8",
-              "gap-[12px]",
-              "sm:gap-[24px]",
+              "gap-[8px]",
+              "sm:gap-[16px]",
             )}>
               <div className="text-center">
                 <div className={cn(
@@ -176,6 +177,7 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
               "text-white",
               "rounded-[8px]",
               "shadow-sm",
+              "mt-2",
             )}
           >
             Редактировать личные данные
