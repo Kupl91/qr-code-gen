@@ -35,7 +35,7 @@ import { cn } from "@/shared/lib/utils"
 export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   const { downloadQRCode } = useDownloadQR()
   const qrCodeId = "qr-code-canvas"
-  const [qrSize, setQrSize] = useState(320)
+  const [qrSize, setQrSize] = useState(200)
   const [isLogoLoaded, setIsLogoLoaded] = useState(false)
 
   useEffect(() => {
@@ -47,14 +47,14 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   useEffect(() => {
     const updateSize = () => {
       const width = window.innerWidth
-      let newSize = 320
+      let newSize = 200
 
       if (width >= 1024) {
         newSize = 360
       } else if (width >= 768) {
-        newSize = 340
-      } else if (width >= 640) {
         newSize = 320
+      } else if (width >= 640) {
+        newSize = 280
       }
 
       setQrSize(newSize)
@@ -89,6 +89,7 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
       "relative",
       "flex flex-col",
       "pt-[32px]",
+      "pb-[24px]",
       "sm:pt-[96px]",
     )}>
       <div className={cn(
@@ -100,7 +101,7 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
         "md:max-w-[580px]",
         "flex-1",
       )}>
-        <div className="relative flex flex-col items-center h-full">
+        <div className="relative flex flex-col items-center h-full gap-[16px]">
           <Card className={cn(
             "w-full",
             "min-h-[420px]",
@@ -122,14 +123,12 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
 
             <div className={cn(
               "w-full",
-              "flex-1",
               "flex flex-col items-center",
-              "justify-between",
-              "pt-[72px]",
+              "pt-[32px]",
               "px-4",
               "sm:px-8",
-              "pb-[20px]",
               "gap-[12px]",
+              "sm:gap-[24px]",
             )}>
               <div className="text-center">
                 <div className={cn(
@@ -162,24 +161,7 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
               </div>
             </div>
           </Card>
-        </div>
-      </div>
 
-      <div className={cn(
-        "w-full",
-        "bg-white",
-        "pb-[24px]",
-        "pt-[16px]",
-        "shadow-[0_-2px_4px_rgba(0,0,0,0.05)]",
-      )}>
-        <div className={cn(
-          "w-full",
-          "px-4",
-          "mx-auto",
-          "sm:px-6",
-          "md:px-0",
-          "md:max-w-[476px]",
-        )}>
           <Button 
             onClick={onEdit} 
             className={cn(
@@ -192,7 +174,8 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
               "bg-[#4855CB]",
               "hover:bg-[#3A45A3]",
               "text-white",
-              "rounded-[8px]"
+              "rounded-[8px]",
+              "shadow-sm",
             )}
           >
             Редактировать личные данные
