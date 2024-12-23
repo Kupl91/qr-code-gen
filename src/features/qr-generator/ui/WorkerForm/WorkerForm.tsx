@@ -96,9 +96,10 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
           "mx-auto",
           "sm:px-6",
           "md:px-0",
-          "md:max-w-[780px]",
+          "md:max-w-[580px]",
+          "lg:max-w-[680px]"
         )}>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 w-full">
             <Card className={cn(
               "w-full",
               "bg-white",
@@ -107,6 +108,7 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
               "overflow-hidden"
             )}>
               <div className={cn(
+                "w-full",
                 "p-6",
                 "sm:p-8",
                 "space-y-4"
