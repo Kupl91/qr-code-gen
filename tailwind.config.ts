@@ -138,6 +138,10 @@ const config: Config = {
   			'input': 'var(--input-line-height)',
   			'label': 'var(--label-line-height)',
   		},
+  		maxWidth: {
+  			'form-mobile': '100%',
+  			'form-tablet': '780px',
+  		}
   	}
   },
   plugins: [require("tailwindcss-animate")],
