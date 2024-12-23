@@ -35,7 +35,7 @@ import { cn } from "@/shared/lib/utils"
 export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   const { downloadQRCode } = useDownloadQR()
   const qrCodeId = "qr-code-canvas"
-  const [qrSize, setQrSize] = useState(256)
+  const [qrSize, setQrSize] = useState(200)
   const [isLogoLoaded, setIsLogoLoaded] = useState(false)
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   useEffect(() => {
     const updateSize = () => {
       const width = window.innerWidth
-      let newSize = 256
+      let newSize = 200
 
       if (width >= 1024) {
         newSize = 360
@@ -85,10 +85,10 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   return (
     <div className={cn(
       "w-full",
-      "min-h-screen",
+      "h-screen",
       "relative",
-      "pb-[88px]",
-      "pt-[64px]",
+      "flex flex-col",
+      "pt-[32px]",
       "sm:pt-[96px]",
     )}>
       <div className={cn(
@@ -98,11 +98,12 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
         "sm:px-6",
         "md:px-0",
         "md:max-w-[476px]",
+        "flex-1",
       )}>
-        <div className="relative flex flex-col items-center">
+        <div className="relative flex flex-col items-center h-full">
           <Card className={cn(
             "w-full",
-            "min-h-[480px]",
+            "min-h-[420px]",
             "sm:min-h-[540px]",
             "bg-white",
             "rounded-[32px]",
@@ -121,10 +122,10 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
             <div className={cn(
               "w-full",
               "flex flex-col items-center",
-              "pt-[48px]",
-              "px-6",
+              "pt-[32px]",
+              "px-4",
               "sm:px-8",
-              "gap-[20px]",
+              "gap-[16px]",
               "sm:gap-[24px]",
             )}>
               <div className="text-center">
@@ -162,13 +163,9 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
       </div>
 
       <div className={cn(
-        "fixed",
-        "bottom-0",
-        "left-0",
-        "right-0",
         "w-full",
         "bg-white",
-        "pb-[44px]",
+        "pb-[24px]",
         "pt-[16px]",
         "shadow-[0_-2px_4px_rgba(0,0,0,0.05)]",
       )}>
