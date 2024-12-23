@@ -82,7 +82,7 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   }
 
   return (
-    <div className="relative w-[476px]">
+    <div className="relative w-[476px] flex flex-col items-center gap-6">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10">
         <Avatar className="h-[64px] w-[64px]">
           <AvatarFallback className="text-[24px]">
@@ -93,7 +93,7 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
 
       <Card className="
         w-full
-        min-h-[618px]
+        min-h-[540px]
         bg-white 
         flex flex-col
         items-center
@@ -141,29 +141,29 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
               <QRCode {...qrConfig} />
             </div>
           </div>
-
-          <Button 
-            onClick={onEdit} 
-            style={{ width: `${qrSize}px` }}
-            className="
-              h-[44px]
-              px-[24px]
-              py-[12px]
-              gap-[6px]
-              font-fact
-              text-[14px]
-              leading-[20px]
-              font-medium
-              text-left
-              bg-[#4855CB]
-              hover:bg-[#3A45A3]
-              rounded-[8px]
-            "
-          >
-            Редактировать личные данные
-          </Button>
         </div>
       </Card>
+
+      <Button 
+        onClick={onEdit} 
+        style={{ width: `${qrSize}px` }}
+        className="
+          h-[44px]
+          px-[24px]
+          py-[12px]
+          gap-[6px]
+          font-fact
+          text-[14px]
+          leading-[20px]
+          font-medium
+          text-left
+          bg-[#4855CB]
+          hover:bg-[#3A45A3]
+          rounded-[8px]
+        "
+      >
+        Редактировать личные данные
+      </Button>
     </div>
   )
 } 
