@@ -100,9 +100,11 @@ const config: Config = {
   			'form-padding': '24px',
   			'form-gap': '16px',
   			'form-header-height': '72px',
-  			'form-input-height': '36px',
+  			'form-input-height': 'var(--input-height)',
   			'form-button-width': '100px',
-  			'form-button-height': '36px'
+  			'form-button-height': '36px',
+  			'form-padding-mobile': 'var(--form-padding-mobile)',
+  			'form-padding-desktop': 'var(--form-padding-desktop)',
   		},
   		fontSize: {
   			'fluid-sm': 'clamp(0.875rem, 1vw, 1rem)',
@@ -111,7 +113,9 @@ const config: Config = {
   			'preview-title': '20px',
   			'preview-text': '14px',
   			'form-title': '20px',
-  			'back-btn': '12px'
+  			'back-btn': '12px',
+  			'input': 'var(--input-font-size)',
+  			'label': 'var(--label-font-size)',
   		},
   		size: {
   			'qr-sm': 'clamp(256px, 70vw, 280px)',
@@ -129,7 +133,11 @@ const config: Config = {
   				md: 'clamp(280px, 60vw, 320px)',
   				lg: 'clamp(320px, 50vw, 360px)'
   			}
-  		}
+  		},
+  		lineHeight: {
+  			'input': 'var(--input-line-height)',
+  			'label': 'var(--label-line-height)',
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

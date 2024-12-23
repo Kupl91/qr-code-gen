@@ -20,6 +20,15 @@
     --back-btn-gap: 4px;
     --back-btn-text-width: 41px;
     --back-btn-text-decoration-skip-ink: none;
+    --form-width-mobile: 100%;
+    --form-width-tablet: 580px;
+    --form-padding-mobile: 16px;
+    --form-padding-desktop: 24px;
+    --input-height: 36px;
+    --input-font-size: 14px;
+    --input-line-height: 20px;
+    --label-font-size: 12px;
+    --label-line-height: 16px;
   }
 
   .dark {

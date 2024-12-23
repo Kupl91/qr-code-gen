@@ -55,92 +55,82 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
   }, [handleFormChange])
 
   return (
-    <div className="fixed inset-0 overflow-y-auto pt-[40px] pb-[40px]">
-      <div className="relative w-[580px] mx-auto">
-        <Button 
-          variant="ghost" 
-          onClick={onCancel}
-          className="flex flex-row items-center gap-[6px] mb-[16px] hover:bg-transparent"
-        >
-          <ArrowLeft className="w-[16px] h-[16px] stroke-[#4855CB] stroke-[1.8]" />
-          <span className="text-[12px] leading-[16px] font-medium text-[rgb(72,85,203)]">
-            Назад
-          </span>
-        </Button>
+    <div className={cn(
+      "w-full",
+      "px-4",
+      "mx-auto",
+      "sm:px-6",
+      "md:px-0",
+      "md:max-w-[580px]",
+    )}>
+      <Button 
+        onClick={onCancel}
+        className={cn(
+          "flex items-center",
+          "mb-4",
+          "h-[36px]",
+          "gap-[4px]",
+          "text-[12px] leading-[16px]",
+          "font-fact font-medium",
+          "text-[#4855CB]",
+          "bg-transparent hover:bg-transparent",
+          "hover:opacity-80"
+        )}
+      >
+        <ArrowLeft className="w-4 h-4 stroke-[1.8]" />
+        <span>Назад</span>
+      </Button>
 
-        <Card className="
-          flex flex-col 
-          items-start 
-          p-[24px] 
-          gap-[16px] 
-          w-full 
-          bg-white
-        ">
-          <div className="flex flex-col w-full">
-            <div className="mb-[16px]">
-              <h1 className="text-[24px] leading-[32px] font-medium text-[rgb(36,36,41)]">
-                Редактировать личные данные
-              </h1>
+      <Card className={cn(
+        "w-full",
+        "bg-white",
+        "rounded-[8px]",
+        "shadow-sm",
+        "overflow-hidden"
+      )}>
+        <div className={cn(
+          "p-6",
+          "sm:p-8",
+          "space-y-6"
+        )}>
+          <h1 className={cn(
+            "text-[24px] leading-[32px]",
+            "font-fact font-medium",
+            "text-[#24242B]"
+          )}>
+            Редактировать личные данные
+          </h1>
+
+          <form onSubmit={form.handleSubmit(onSave)} className="space-y-4">
+            <div className="space-y-4">
+              <FormField label="Имя" name="firstname" form={form} />
+              <FormField label="Фамилия" name="lastname" form={form} />
+              <FormField label="Организация" name="organization" form={form} />
+              <FormField label="Должность" name="position" form={form} />
+              <FormField label="Рабочий телефон" name="phoneWork" form={form} />
+              <FormField label="Мобильный телефон" name="phoneMobile" form={form} />
+              <FormField label="Email" name="email" form={form} />
+              <FormField label="Веб-сайт" name="website" form={form} />
             </div>
 
-            <form onSubmit={form.handleSubmit(onSave)} className="flex flex-col gap-[16px] w-full">
-              <div className="space-y-[16px]">
-                <FormField
-                  label="Имя"
-                  name="firstname"
-                  form={form}
-                />
-                <FormField
-                  label="Фамилия" 
-                  name="lastname"
-                  form={form}
-                />
-                <FormField
-                  label="Организация"
-                  name="organization"
-                  form={form}
-                />
-                <FormField
-                  label="Должность"
-                  name="position"
-                  form={form}
-                />
-                <FormField
-                  label="Рабочий телефон"
-                  name="phoneWork"
-                  form={form}
-                />
-                <FormField
-                  label="Мобильный телефон"
-                  name="phoneMobile"
-                  form={form}
-                />
-                <FormField
-                  label="Email"
-                  name="email"
-                  form={form}
-                />
-                <FormField
-                  label="Веб-сайт"
-                  name="website"
-                  form={form}
-                />
-              </div>
-              
-              <div className="flex justify-end mt-[24px]">
-                <Button 
-                  type="submit"
-                  className="flex flex-row justify-center items-center px-[16px] py-[8px] gap-[4px] w-[100px] h-[36px] bg-[#4855CB] hover:bg-[#3A45A3] rounded-[4px]"
-                >
-                  <span className="font-fact font-medium text-[12px] leading-[16px] text-white">
-                    Сохранить
-                  </span>
-                </Button>
-              </div>
-            </form>
-          </div>
-        </Card>
-      </div>
+            <div className="flex justify-end pt-2">
+              <Button 
+                type="submit"
+                className={cn(
+                  "w-[100px] h-[36px]",
+                  "text-[12px] leading-[16px]",
+                  "font-fact font-medium",
+                  "bg-[#4855CB] hover:bg-[#3A45A3]",
+                  "text-white",
+                  "rounded-[4px]"
+                )}
+              >
+                Сохранить
+              </Button>
+            </div>
+          </form>
+        </div>
+      </Card>
     </div>
   )
 }
