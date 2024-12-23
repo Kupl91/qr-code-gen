@@ -12,7 +12,7 @@
 import { Card } from "@/shared/ui/card"
 import { Button } from "@/shared/ui/button"
 import { QRCode } from '@jackybaby/react-custom-qrcode'
-import { useDownloadQR } from "@/shared/lib/hooks"
+//import { useDownloadQR } from "@/shared/lib/hooks"
 import type { QRCodePreviewProps } from '../../api/types'
 import { useEffect, useState } from 'react'
 import { Avatar, AvatarFallback } from "@/shared/ui/avatar"
@@ -33,7 +33,7 @@ import { cn } from "@/shared/lib/utils"
  * )
  */
 export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
-  const { downloadQRCode } = useDownloadQR()
+  //const { downloadQRCode } = useDownloadQR()
   const qrCodeId = "qr-code-canvas"
   const [qrSize, setQrSize] = useState(320)
   const [isLogoLoaded, setIsLogoLoaded] = useState(false)
@@ -156,9 +156,9 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
 
             <div className="w-full flex justify-center">
               <div 
-                className="aspect-square cursor-pointer hover:opacity-90 transition-opacity"
+                className="aspect-square"
                 style={{ width: `${qrSize}px` }}
-                onClick={() => downloadQRCode(qrCodeId)}
+                // onClick={() => downloadQRCode(qrCodeId)}
               >
                 <QRCode {...qrConfig} />
               </div>

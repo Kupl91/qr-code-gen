@@ -92,11 +92,11 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
       )}>
         <div className={cn(
           "w-full",
-          "px-2",
+          "px-0",
           "mx-auto",
           "sm:px-6",
           "md:px-0",
-          "md:max-w-[680px]",
+          "md:max-w-[780px]",
         )}>
           <div className="flex flex-col gap-4">
             <Card className={cn(
