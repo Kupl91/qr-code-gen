@@ -57,11 +57,11 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
   return (
     <div className={cn(
       "w-full",
-      "px-4",
+      "px-2",
       "mx-auto",
       "sm:px-6",
       "md:px-0",
-      "md:max-w-[580px]",
+      "md:max-w-[680px]",
     )}>
       <Button 
         onClick={onCancel}
@@ -70,72 +70,72 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
           "mb-4",
           "h-[36px]",
           "gap-[4px]",
-          "text-[12px] leading-[16px]",
+          "text-[12px]",
+          "leading-[16px]",
           "font-fact font-medium",
           "text-[#4855CB]",
-          "bg-transparent hover:bg-transparent",
-          "hover:opacity-80"
+          "bg-transparent",
+          "hover:bg-transparent",
+          "shadow-none",
+          "border-none",
+          "outline-none",
         )}
       >
-        <ArrowLeft className="w-4 h-4 stroke-[1.8]" />
-        <span>Назад</span>
+        <ArrowLeft className="w-4 h-4 stroke-[1.8] opacity-100" />
+        <span className="opacity-0">Назад</span>
       </Button>
 
-      <Card className={cn(
-        "w-full",
-        "bg-white",
-        "rounded-[8px]",
-        "shadow-sm",
-        "overflow-hidden"
-      )}>
-        <div className={cn(
-          "p-6",
-          "sm:p-8",
-          "space-y-6"
+      <div className="flex flex-col gap-4">
+        <Card className={cn(
+          "w-full",
+          "bg-white",
+          "rounded-[8px]",
+          "shadow-sm",
+          "overflow-hidden"
         )}>
-          <h1 className={cn(
-            "text-[24px] leading-[32px]",
-            "font-fact font-medium",
-            "text-[#24242B]"
+          <div className={cn(
+            "p-6",
+            "sm:p-8",
+            "space-y-4"
           )}>
-            Редактировать личные данные
-          </h1>
+            <form onSubmit={form.handleSubmit(onSave)} className="space-y-4">
+              <div className="space-y-3">
+                <FormField label="Имя" name="firstname" form={form} />
+                <FormField label="Фамилия" name="lastname" form={form} />
+                <FormField label="Организация" name="organization" form={form} />
+                <FormField label="Должность" name="position" form={form} />
+                <FormField label="Рабочий телефон" name="phoneWork" form={form} />
+                <FormField label="Мобильный телефон" name="phoneMobile" form={form} />
+                <FormField label="Email" name="email" form={form} />
+                <FormField label="Веб-сайт" name="website" form={form} />
+              </div>
+            </form>
+          </div>
+        </Card>
 
-          <form onSubmit={form.handleSubmit(onSave)} className="space-y-4">
-            <div className="space-y-4">
-              <FormField label="Имя" name="firstname" form={form} />
-              <FormField label="Фамилия" name="lastname" form={form} />
-              <FormField label="Организация" name="organization" form={form} />
-              <FormField label="Должность" name="position" form={form} />
-              <FormField label="Рабочий телефон" name="phoneWork" form={form} />
-              <FormField label="Мобильный телефон" name="phoneMobile" form={form} />
-              <FormField label="Email" name="email" form={form} />
-              <FormField label="Веб-сайт" name="website" form={form} />
-            </div>
-
-            <div className="flex justify-end pt-2">
-              <Button 
-                type="submit"
-                className={cn(
-                  "w-[100px] h-[36px]",
-                  "text-[12px] leading-[16px]",
-                  "font-fact font-medium",
-                  "bg-[#4855CB] hover:bg-[#3A45A3]",
-                  "text-white",
-                  "rounded-[4px]"
-                )}
-              >
-                Сохранить
-              </Button>
-            </div>
-          </form>
-        </div>
-      </Card>
+        <Button 
+          onClick={form.handleSubmit(onSave)}
+          className={cn(
+            "w-full",
+            "h-[44px]",
+            "text-[14px]",
+            "leading-[20px]",
+            "font-fact font-medium",
+            "bg-[#4855CB]",
+            "hover:bg-[#3A45A3]",
+            "text-white",
+            "rounded-[8px]",
+            "shadow-sm"
+          )}
+        >
+          Сохранить
+        </Button>
+      </div>
     </div>
   )
 }
 
-// Выделим повторяющуюся структуру полей в отдельный компонент
+// Выделим овторяющуюся структуру полей в отдельный компонент
 interface FormFieldProps {
   label: string;
   name: keyof WorkerDTO;
