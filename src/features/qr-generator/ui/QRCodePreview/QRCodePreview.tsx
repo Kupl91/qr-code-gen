@@ -94,75 +94,82 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
     )}>
       <div className={cn(
         "w-full",
+        "h-full",
         "px-2",
         "mx-auto",
         "sm:px-6",
         "md:px-0",
         "md:max-w-[580px]",
-        "flex-1",
+        "flex flex-col",
+        "justify-between",
       )}>
-        <div className="relative flex flex-col items-center h-full gap-[12px]">
-          <Card className={cn(
+        <Card className={cn(
+          "w-full",
+          "min-h-[420px]",
+          "sm:min-h-[480px]",
+          "bg-white",
+          "rounded-[32px]",
+          "shadow-sm",
+          "overflow-visible",
+          "relative",
+          "flex flex-col",
+          "pb-4",
+        )}>
+          <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 z-10">
+            <Avatar className="h-[64px] w-[64px]">
+              <AvatarFallback className="text-[24px]">
+                {`${data.firstname[0]}${data.lastname[0]}`.toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+          </div>
+
+          <div className={cn(
             "w-full",
-            "min-h-[420px]",
-            "sm:min-h-[480px]",
-            "bg-white",
-            "rounded-[32px]",
-            "shadow-sm",
-            "overflow-visible",
-            "relative",
-            "flex flex-col",
-            "pb-4",
+            "flex flex-col items-center",
+            "pt-[32px]",
+            "px-4",
+            "sm:px-8",
+            "gap-[8px]",
+            "sm:gap-[16px]",
           )}>
-            <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 z-10">
-              <Avatar className="h-[64px] w-[64px]">
-                <AvatarFallback className="text-[24px]">
-                  {`${data.firstname[0]}${data.lastname[0]}`.toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-            </div>
-
-            <div className={cn(
-              "w-full",
-              "flex flex-col items-center",
-              "pt-[32px]",
-              "px-4",
-              "sm:px-8",
-              "gap-[8px]",
-              "sm:gap-[16px]",
-            )}>
-              <div className="text-center">
-                <div className={cn(
-                  "text-[20px]",
-                  "leading-[24px]",
-                  "font-fact font-medium",
-                  "text-[rgb(36,36,43)]",
-                  "mb-[4px]"
-                )}>
-                  {data.firstname} {data.lastname}
-                </div>
-                <div className={cn(
-                  "text-[20px]",
-                  "leading-[24px]",
-                  "font-fact font-normal",
-                  "text-[rgb(169,169,178)]"
-                )}>
-                  {data.email}
-                </div>
+            <div className="text-center">
+              <div className={cn(
+                "text-[20px]",
+                "leading-[24px]",
+                "font-fact font-medium",
+                "text-[rgb(36,36,43)]",
+                "mb-[4px]"
+              )}>
+                {data.firstname} {data.lastname}
               </div>
-
-              <div className="w-full flex justify-center">
-                <div 
-                  className="aspect-square cursor-pointer hover:opacity-90 transition-opacity"
-                  style={{ width: `${qrSize}px` }}
-                  onClick={() => downloadQRCode(qrCodeId)}
-                >
-                  <QRCode {...qrConfig} />
-                </div>
+              <div className={cn(
+                "text-[20px]",
+                "leading-[24px]",
+                "font-fact font-normal",
+                "text-[rgb(169,169,178)]"
+              )}>
+                {data.email}
               </div>
             </div>
-          </Card>
 
+            <div className="w-full flex justify-center">
+              <div 
+                className="aspect-square cursor-pointer hover:opacity-90 transition-opacity"
+                style={{ width: `${qrSize}px` }}
+                onClick={() => downloadQRCode(qrCodeId)}
+              >
+                <QRCode {...qrConfig} />
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <div className={cn(
+          "w-full",
+          "px-2",
+          "sm:px-6",
+          "md:px-0",
+        )}>
           <Button 
             onClick={onEdit} 
             className={cn(
@@ -177,7 +184,7 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
               "text-white",
               "rounded-[8px]",
               "shadow-sm",
-              "mt-2",
+              "mt-4",
             )}
           >
             Редактировать личные данные
