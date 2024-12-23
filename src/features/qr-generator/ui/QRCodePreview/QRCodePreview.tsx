@@ -88,9 +88,10 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
       "h-screen",
       "relative",
       "flex flex-col",
-      "pt-[24px]",
-      "pb-[16px]",
+      "pt-[48px]",
+      "pb-[24px]",
       "sm:pt-[64px]",
+      "overflow-hidden",
     )}>
       <div className={cn(
         "w-full",
@@ -102,10 +103,11 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
         "md:max-w-[580px]",
         "flex flex-col",
         "justify-between",
+        "pt-[24px]",
       )}>
         <Card className={cn(
           "w-full",
-          "min-h-[420px]",
+          "min-h-[380px]",
           "sm:min-h-[480px]",
           "bg-white",
           "rounded-[32px]",
@@ -169,6 +171,8 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
           "px-2",
           "sm:px-6",
           "md:px-0",
+          "mt-auto",
+          "pb-2",
         )}>
           <Button 
             onClick={onEdit} 
