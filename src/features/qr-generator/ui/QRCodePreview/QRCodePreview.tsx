@@ -35,7 +35,7 @@ import { cn } from "@/shared/lib/utils"
 export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   const { downloadQRCode } = useDownloadQR()
   const qrCodeId = "qr-code-canvas"
-  const [qrSize, setQrSize] = useState(200)
+  const [qrSize, setQrSize] = useState(320)
   const [isLogoLoaded, setIsLogoLoaded] = useState(false)
 
   useEffect(() => {
@@ -47,14 +47,14 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   useEffect(() => {
     const updateSize = () => {
       const width = window.innerWidth
-      let newSize = 200
+      let newSize = 320
 
       if (width >= 1024) {
         newSize = 360
       } else if (width >= 768) {
-        newSize = 320
+        newSize = 340
       } else if (width >= 640) {
-        newSize = 280
+        newSize = 320
       }
 
       setQrSize(newSize)
@@ -93,11 +93,11 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
     )}>
       <div className={cn(
         "w-full",
-        "px-4",
+        "px-2",
         "mx-auto",
         "sm:px-6",
         "md:px-0",
-        "md:max-w-[476px]",
+        "md:max-w-[580px]",
         "flex-1",
       )}>
         <div className="relative flex flex-col items-center h-full">
@@ -110,6 +110,7 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
             "shadow-sm",
             "overflow-visible",
             "relative",
+            "flex flex-col",
           )}>
             <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 z-10">
               <Avatar className="h-[64px] w-[64px]">
@@ -121,12 +122,14 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
 
             <div className={cn(
               "w-full",
+              "flex-1",
               "flex flex-col items-center",
-              "pt-[32px]",
+              "justify-between",
+              "pt-[72px]",
               "px-4",
               "sm:px-8",
-              "gap-[16px]",
-              "sm:gap-[24px]",
+              "pb-[20px]",
+              "gap-[12px]",
             )}>
               <div className="text-center">
                 <div className={cn(
