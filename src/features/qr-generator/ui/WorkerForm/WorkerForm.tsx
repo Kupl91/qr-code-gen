@@ -43,6 +43,9 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
     defaultValues
   })
 
+  // Массив полей, которые должны быть только для чтения
+  const readonlyFields: (keyof WorkerDTO)[] = ['firstname', 'lastname', 'position', 'organization', 'email'];
+
   const handleFormChange = form.watch((data) => {
     if (data) {
       dispatch(workerActions.setWorkerData(data as WorkerDTO))
@@ -115,14 +118,14 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
               )}>
                 <form onSubmit={form.handleSubmit(onSave)} className="space-y-4">
                   <div className="space-y-3">
-                    <FormField label="Имя" name="firstname" form={form} />
-                    <FormField label="Фамилия" name="lastname" form={form} />
-                    <FormField label="Организация" name="organization" form={form} />
-                    <FormField label="Должность" name="position" form={form} />
-                    <FormField label="Рабочий телефон" name="phoneWork" form={form} />
-                    <FormField label="Мобильный телефон" name="phoneMobile" form={form} />
-                    <FormField label="Email" name="email" form={form} />
-                    <FormField label="Веб-сайт" name="website" form={form} />
+                    <FormField label="Имя" name="firstname" form={form} readonly={readonlyFields.includes('firstname')} />
+                    <FormField label="Фамилия" name="lastname" form={form} readonly={readonlyFields.includes('lastname')} />
+                    <FormField label="Организация" name="organization" form={form} readonly={readonlyFields.includes('organization')} />
+                    <FormField label="Должность" name="position" form={form} readonly={readonlyFields.includes('position')} />
+                    <FormField label="Рабочий телефон" name="phoneWork" form={form} readonly={readonlyFields.includes('phoneWork')} />
+                    <FormField label="Мобильный телефон" name="phoneMobile" form={form} readonly={readonlyFields.includes('phoneMobile')} />
+                    <FormField label="Email" name="email" form={form} readonly={readonlyFields.includes('email')} />
+                    <FormField label="Веб-сайт" name="website" form={form} readonly={readonlyFields.includes('website')} />
                   </div>
                 </form>
               </div>
@@ -157,9 +160,10 @@ interface FormFieldProps {
   label: string;
   name: keyof WorkerDTO;
   form: UseFormReturn<WorkerDTO>;
+  readonly?: boolean;
 }
 
-function FormField({ label, name, form }: FormFieldProps) {
+function FormField({ label, name, form, readonly = false }: FormFieldProps) {
   return (
     <div className="flex flex-col gap-[2px] w-full">
       <Label 
@@ -176,8 +180,10 @@ function FormField({ label, name, form }: FormFieldProps) {
           "text-[#1A1B22] placeholder:text-[#898989]",
           "bg-[#F9F9FB] border border-[#E3E4E8] rounded-[4px]",
           "focus:border-[#4855CB] focus:ring-1 focus:ring-[#4855CB]",
-          "hover:border-[#4855CB] transition-colors"
+          "hover:border-[#4855CB] transition-colors",
+          readonly && "bg-[#F0F0F5] cursor-not-allowed opacity-90"
         )}
+        readOnly={readonly}
         {...form.register(name)} 
       />
       {form.formState.errors[name] && (
