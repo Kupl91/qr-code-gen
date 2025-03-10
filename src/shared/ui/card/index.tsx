@@ -2,78 +2,57 @@ import * as React from "react"
 
 import { cn } from "@/shared/lib/utils"
 
-const Card = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "rounded-card border bg-card text-card-foreground shadow-sm",
-      className
-    )}
-    {...props}
-  />
-))
-Card.displayName = "Card"
+/**
+ * Фабрика компонентов с общей структурой для уменьшения дублирования кода
+ */
+function createCardComponent<T extends keyof JSX.IntrinsicElements = "div">(
+  displayName: string,
+  defaultClassNames: string
+) {
+  const Component = React.forwardRef<
+    HTMLElement,
+    React.HTMLAttributes<HTMLElement>
+  >(({ className, ...props }, ref) => {
+    return React.createElement(
+      "div" as unknown as T,
+      {
+        ref,
+        className: cn(defaultClassNames, className),
+        ...props,
+      },
+      props.children
+    )
+  })
 
-const CardHeader = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
-    {...props}
-  />
-))
-CardHeader.displayName = "CardHeader"
+  Component.displayName = displayName
+  return Component
+}
 
-const CardTitle = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "text-2xl font-semibold leading-none tracking-tight",
-      className
-    )}
-    {...props}
-  />
-))
-CardTitle.displayName = "CardTitle"
+const Card = createCardComponent(
+  "Card",
+  "rounded-card border bg-card text-card-foreground shadow-sm"
+)
 
-const CardDescription = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
-    {...props}
-  />
-))
-CardDescription.displayName = "CardDescription"
+const CardHeader = createCardComponent(
+  "CardHeader",
+  "flex flex-col space-y-1.5 p-6"
+)
 
-const CardContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
-))
-CardContent.displayName = "CardContent"
+const CardTitle = createCardComponent(
+  "CardTitle",
+  "text-2xl font-semibold leading-none tracking-tight"
+)
 
-const CardFooter = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex items-center p-6 pt-0", className)}
-    {...props}
-  />
-))
-CardFooter.displayName = "CardFooter"
+const CardDescription = createCardComponent(
+  "CardDescription",
+  "text-sm text-muted-foreground"
+)
+
+const CardContent = createCardComponent("CardContent", "p-6 pt-0")
+
+const CardFooter = createCardComponent(
+  "CardFooter",
+  "flex items-center p-6 pt-0"
+)
 
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }

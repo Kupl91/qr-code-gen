@@ -12,11 +12,18 @@
 import { Card } from "@/shared/ui/card"
 import { Button } from "@/shared/ui/button"
 import { QRCode } from '@jackybaby/react-custom-qrcode'
-//import { useDownloadQR } from "@/shared/lib/hooks"
+import { useDownloadQR } from "@/shared/lib/hooks"
 import type { QRCodePreviewProps } from '../../api/types'
 import { useEffect, useState } from 'react'
 import { Avatar, AvatarFallback } from "@/shared/ui/avatar"
 import { cn } from "@/shared/lib/utils"
+import { Download, MoreVertical, Globe } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "@/shared/ui/dropdown-menu"
 
 /**
  * Компонент QRCodePreview
@@ -33,7 +40,7 @@ import { cn } from "@/shared/lib/utils"
  * )
  */
 export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
-  //const { downloadQRCode } = useDownloadQR()
+  const { downloadQRCode } = useDownloadQR()
   const qrCodeId = "qr-code-canvas"
   const [qrSize, setQrSize] = useState(320)
   const [isLogoLoaded, setIsLogoLoaded] = useState(false)
@@ -156,9 +163,9 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
 
             <div className="w-full flex justify-center">
               <div 
-                className="aspect-square"
+                className="aspect-square cursor-pointer"
                 style={{ width: `${qrSize}px` }}
-                // onClick={() => downloadQRCode(qrCodeId)}
+                onClick={() => downloadQRCode(qrCodeId)}
               >
                 <QRCode {...qrConfig} />
               </div>
@@ -174,25 +181,58 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
           "mt-auto",
           "pb-2",
         )}>
-          <Button 
-            onClick={onEdit} 
-            className={cn(
-              "w-full",
-              "h-[44px]",
-              "font-fact",
-              "text-[14px]",
-              "leading-[20px]",
-              "font-medium",
-              "bg-[#4855CB]",
-              "hover:bg-[#3A45A3]",
-              "text-white",
-              "rounded-[8px]",
-              "shadow-sm",
-              "mt-4",
-            )}
-          >
-            Редактировать личные данные
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              onClick={onEdit} 
+              className={cn(
+                "flex-grow",
+                "h-[44px]",
+                "font-fact",
+                "text-[14px]",
+                "leading-[20px]",
+                "font-medium",
+                "bg-[#4855CB]",
+                "hover:bg-[#3A45A3]",
+                "text-white",
+                "rounded-[8px]",
+                "shadow-sm",
+                "mt-4",
+              )}
+            >
+              Редактировать личные данные
+            </Button>
+            
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-[44px] w-[44px] p-0 mt-4">
+                  <MoreVertical className="h-5 w-5 text-[#4855CB]" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent 
+                side="top" 
+                align="end" 
+                className="rounded-[8px] bg-[#4855CB] text-white border-none p-0 min-w-[200px]"
+              >
+                <DropdownMenuItem 
+                  onClick={() => downloadQRCode(qrCodeId)}
+                  className="hover:bg-[#3A45A3] rounded-[8px] h-[44px] px-4 font-fact text-[14px] leading-[20px] font-medium cursor-pointer"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  <span>Скачать QR-код</span>
+                </DropdownMenuItem>
+                
+                <div className="h-[1px] bg-[#3A45A3] mx-2"></div>
+                
+                <DropdownMenuItem 
+                  onClick={() => {/* Здесь будет функционал смены языка */}}
+                  className="hover:bg-[#3A45A3] rounded-[8px] h-[44px] px-4 font-fact text-[14px] leading-[20px] font-medium cursor-pointer"
+                >
+                  <Globe className="mr-2 h-4 w-4" />
+                  <span>Сменить язык</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
     </div>
