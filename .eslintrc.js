@@ -3,6 +3,7 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   extends: [
     'next/core-web-vitals',
+    'next/typescript',
     'plugin:@typescript-eslint/recommended',
   ],
   rules: {

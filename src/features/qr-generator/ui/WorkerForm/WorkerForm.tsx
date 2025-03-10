@@ -58,20 +58,21 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
   }, [handleFormChange])
 
   return (
-    <div className="relative w-full h-screen">
+    <div className="relative w-full h-screen flex flex-col">
       <Button 
         onClick={onCancel}
         className={cn(
           "absolute",
-          "left-2",
-          "top-8",
-          "sm:left-4",
-          "sm:top-12",
+          "left-0",
+          "top-3",
+          "sm:left-0",
+          "sm:top-4",
           "flex items-center",
-          "h-[36px]",
+          "h-[40px]",
           "gap-[4px]",
-          "text-[12px]",
-          "leading-[16px]",
+          "pl-4",
+          "text-[14px]",
+          "leading-[20px]",
           "font-fact font-medium",
           "text-[#4855CB]",
           "bg-transparent",
@@ -82,14 +83,15 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
           "z-10",
         )}
       >
-        <ArrowLeft className="w-4 h-4 stroke-[1.8] opacity-100" />
-        <span className="opacity-0">Назад</span>
+        <ArrowLeft className="w-5 h-5 stroke-[2] opacity-100" />
+        <span className="opacity-100">Назад</span>
       </Button>
 
       <div className={cn(
         "w-full",
-        "h-full",
-        "flex items-start",
+        "flex-grow",
+        "overflow-y-auto",
+        "pb-[80px]",
         "pt-[64px]",
         "sm:pt-[128px]",
       )}>
@@ -130,26 +132,42 @@ export function WorkerForm({ defaultValues, onSave, onCancel }: WorkerFormProps)
                 </form>
               </div>
             </Card>
-
-            <Button 
-              onClick={form.handleSubmit(onSave)}
-              className={cn(
-                "w-full",
-                "h-[44px]",
-                "text-[14px]",
-                "leading-[20px]",
-                "font-fact font-medium",
-                "bg-[#4855CB]",
-                "hover:bg-[#3A45A3]",
-                "text-white",
-                "rounded-[8px]",
-                "shadow-sm"
-              )}
-            >
-              Сохранить
-            </Button>
           </div>
         </div>
+      </div>
+      
+      <div className={cn(
+        "w-full",
+        "px-2",
+        "sm:px-6",
+        "md:px-0",
+        "mt-auto",
+        "pb-2",
+        "absolute",
+        "bottom-0",
+        "left-0",
+        "right-0",
+        "bg-white",
+      )}>
+        <Button 
+          onClick={form.handleSubmit(onSave)}
+          className={cn(
+            "w-full",
+            "h-[44px]",
+            "font-fact",
+            "text-[14px]",
+            "leading-[20px]",
+            "font-medium",
+            "bg-[#4855CB]",
+            "hover:bg-[#3A45A3]",
+            "text-white",
+            "rounded-[8px]",
+            "shadow-sm",
+            "mt-4",
+          )}
+        >
+          Сохранить
+        </Button>
       </div>
     </div>
   )
