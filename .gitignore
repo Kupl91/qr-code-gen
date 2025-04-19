@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+package-lock.json
 
 # testing
 /coverage
@@ -34,3 +35,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# reports and analysis
+/jscpd-report/
+/deps-graph.svg
+/dependency-graph.svg
+/*.json
+/*.svg
+/*.dot
+/raw-types.json
+/types-duplicates.json
+/types-dependencies.json
+/cycle-errors.json
+/cycle-errors-pretty.txt
