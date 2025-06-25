@@ -25,7 +25,7 @@ export function mapUserToWorkerData(userData: UserData): WorkerDataFromUser {
     email: userData.email,
     phoneWork: userData.phone,
     phoneMobile: userData.mobile,
-    website: '', // Можно добавить поле website в API
+    website: 'https://1440.space/',
     photo: userData.photo ? `data:image/jpeg;base64,${userData.photo}` : undefined
   }
 }
