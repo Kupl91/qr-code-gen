@@ -1,2 +1,2 @@
 export type { WorkerDTO } from '@/entities/worker'
-export { mockWorkerData } from './mocks/worker' 
+// Mock данные удалены, используются реальные данные из API 

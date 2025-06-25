@@ -7,8 +7,7 @@
 ### WorkerDTO
 ```typescript
 interface WorkerDTO {
-  firstname: string     // Имя сотрудника
-  lastname: string      // Фамилия сотрудника
+  fullname: string      // Полное имя сотрудника (ФИО)
   position: string      // Должность
   organization: string  // Организация
   phoneWork: string     // Рабочий телефон

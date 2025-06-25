@@ -1,15 +1,16 @@
-import { Metadata } from 'next'
+'use client'
+
+import { useEffect } from 'react'
 import { QRGeneratorWidget } from "@/widgets/qr-generator"
-
-export const metadata: Metadata = {
-  title: 'QR Code Generator',
-  description: 'Генератор QR-кодов с контактной информацией'
-}
-
-// Настройка кэширования страницы
-export const revalidate = 3600 // Ревалидация каждый час
+import { useAuth } from '@/shared/lib/hooks/useAuth'
 
 export default function HomePage() {
+  const { requireAuth } = useAuth()
+
+  useEffect(() => {
+    requireAuth()
+  }, [requireAuth])
+
   return (
     <main className="min-h-screen flex items-center justify-center">
       <QRGeneratorWidget />

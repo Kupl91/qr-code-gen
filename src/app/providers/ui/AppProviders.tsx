@@ -1,20 +1,19 @@
 'use client'
 
 import { StoreProvider } from '../store'
-import { SessionProvider } from 'next-auth/react'
+import { QueryProvider } from './QueryProvider'
 import { ReactNode } from 'react'
 
 interface AppProvidersProps {
   children: ReactNode
-  session?: any
 }
 
-export function AppProviders({ children, session }: AppProvidersProps) {
+export function AppProviders({ children }: AppProvidersProps) {
   return (
-    <SessionProvider session={session}>
+    <QueryProvider>
       <StoreProvider>
         {children}
       </StoreProvider>
-    </SessionProvider>
+    </QueryProvider>
   )
 } 

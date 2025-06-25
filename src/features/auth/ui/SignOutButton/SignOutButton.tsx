@@ -1,14 +1,30 @@
 'use client'
 
-import { signOut } from 'next-auth/react'
 import { Button } from '@/shared/ui/button'
+import { useLogout } from '@/shared/lib/hooks/useAuth'
 
-export function SignOutButton() {
+interface SignOutButtonProps {
+  className?: string
+  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'
+  size?: 'default' | 'sm' | 'lg' | 'icon'
+}
+
+export function SignOutButton({ 
+  className, 
+  variant = 'outline', 
+  size = 'sm' 
+}: SignOutButtonProps = {}) {
+  const logoutMutation = useLogout()
+
   return (
     <Button 
-      onClick={() => signOut({ callbackUrl: '/auth/signin' })}
+      variant={variant}
+      size={size}
+      className={className}
+      onClick={() => logoutMutation.mutate()}
+      disabled={logoutMutation.isPending}
     >
-      Выйти
+      {logoutMutation.isPending ? 'Выход...' : 'Выйти'}
     </Button>
   )
 } 

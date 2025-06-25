@@ -28,6 +28,11 @@ export const workerSlice = createSlice({
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload
       state.loading = false
+    },
+    clearWorkerData: (state) => {
+      state.data = null
+      state.loading = false
+      state.error = null
     }
   }
 })

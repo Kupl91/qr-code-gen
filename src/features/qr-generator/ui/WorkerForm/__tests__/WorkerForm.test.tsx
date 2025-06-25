@@ -50,8 +50,7 @@ describe('WorkerForm', () => {
 
   it('вызывает onSave с валидными данными', async () => {
     const validData = {
-      firstname: 'John',
-      lastname: 'Doe',
+      fullname: 'Иванов Иван Иванович',
       organization: 'Company',
       position: 'Developer',
       phoneWork: '+79991234567',
@@ -79,8 +78,7 @@ describe('WorkerForm', () => {
       expect(mockOnSave).toHaveBeenCalled()
       const savedData = mockOnSave.mock.calls[0][0]
       expect(savedData).toEqual(expect.objectContaining({
-        firstname: validData.firstname,
-        lastname: validData.lastname,
+        fullname: validData.fullname,
         organization: validData.organization,
         position: validData.position
       }))

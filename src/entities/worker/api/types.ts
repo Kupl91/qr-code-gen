@@ -14,14 +14,14 @@ import { z } from 'zod'
  * @constant
  */
 export const workerSchema = z.object({
-  firstname: z.string().min(2, 'Минимум 2 символа'),
-  lastname: z.string().min(2, 'Минимум 2 символа'),
+  fullname: z.string().min(2, 'Минимум 2 символа'),
   position: z.string().min(2, 'Минимум 2 символа'),
   organization: z.string().min(2, 'Минимум 2 символа'),
   phoneWork: z.string().min(10, 'Некорректный номер'),
   phoneMobile: z.string().min(10, 'Некорректный номер').optional(),
   email: z.string().email('Некорректный email'),
-  website: z.string().url('Некорректный URL')
+  website: z.string().url('Некорректный URL').optional(),
+  photo: z.string().optional() // base64 фотография пользователя
 })
 
 /**

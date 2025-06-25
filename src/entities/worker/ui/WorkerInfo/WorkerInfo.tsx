@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "@/shared/ui/avatar"
+import { UserAvatar } from "@/shared/ui/avatar"
 import { WorkerDTO } from '../../api/types'
 
 interface WorkerInfoProps {
@@ -6,16 +6,16 @@ interface WorkerInfoProps {
 }
 
 export function WorkerInfo({ data }: WorkerInfoProps) {
-  const initials = `${data.firstname[0]}${data.lastname[0]}`.toUpperCase()
-  
   return (
     <div className="flex flex-col items-center space-y-2">
-      <Avatar className="h-16 w-16">
-        <AvatarFallback>{initials}</AvatarFallback>
-      </Avatar>
+      <UserAvatar 
+        fullname={data.fullname} 
+        photo={data.photo} 
+        size="lg"
+      />
       <div className="text-center">
         <div className="text-[16px] leading-[20px] font-medium text-input-text">
-          {data.firstname} {data.lastname}
+          {data.fullname}
         </div>
         <div className="text-[14px] leading-[20px] text-label-text">
           {data.email}

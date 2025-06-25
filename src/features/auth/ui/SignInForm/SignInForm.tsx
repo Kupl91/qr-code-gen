@@ -1,13 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import { Card } from '@/shared/ui/card'
 import { Button } from '@/shared/ui/button'
 import { Input } from '@/shared/ui/input'
 import { Label } from '@/shared/ui/label'
+import { useLogin, useAuth } from '@/shared/lib/hooks/useAuth'
+import { formatUsername, COMPANY_DOMAIN } from '@/shared/config/api'
+import { toast } from 'sonner'
 
 interface FormData {
   username: string
@@ -15,38 +16,63 @@ interface FormData {
 }
 
 export function SignInForm() {
-  const router = useRouter()
   const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const loginMutation = useLogin()
+  const { getLastLogin } = useAuth()
   
   const { 
     register, 
     handleSubmit, 
-    formState: { errors } 
+    formState: { errors },
+    setValue
   } = useForm<FormData>()
 
+  // Загружаем последний использованный логин при монтировании компонента
+  useEffect(() => {
+    const lastLogin = getLastLogin()
+    if (lastLogin) {
+      setValue('username', lastLogin)
+    }
+  }, [getLastLogin, setValue])
+
+  // Показываем ошибку при неудачной попытке входа
+  useEffect(() => {
+    if (loginMutation.error) {
+      const errorMessage = loginMutation.error.message || 'Неверное имя пользователя или пароль'
+      setError(errorMessage)
+      toast.error("Ошибка входа", {
+        description: errorMessage,
+        duration: 4000,
+      })
+    }
+  }, [loginMutation.error])
+
+  // Показываем toast при успешном входе
+  useEffect(() => {
+    if (loginMutation.isSuccess) {
+      toast.success("Успешный вход", {
+        description: "Добро пожаловать в систему QR генератора",
+        duration: 3000,
+      })
+    }
+  }, [loginMutation.isSuccess])
+
   const onSubmit = async (data: FormData) => {
-    setIsLoading(true)
     setError(null)
     
-    try {
-      const result = await signIn('credentials', {
-        username: data.username,
-        password: data.password,
-        redirect: false
+    if (!data.username || !data.password) {
+      setError('Заполните все поля')
+      toast.error("Заполните все поля", {
+        description: "Введите логин и пароль для входа в систему",
+        duration: 3000,
       })
-      
-      if (result?.error) {
-        setError('Неверное имя пользователя или пароль')
-        return
-      }
-      
-      router.push('/')
-    } catch (err) {
-      setError('Произошла ошибка при входе. Пожалуйста, попробуйте снова.')
-    } finally {
-      setIsLoading(false)
+      return
     }
+
+    // Автоматически добавляем домен если его нет
+    const username = formatUsername(data.username)
+    
+    loginMutation.mutate({ username, password: data.password })
   }
 
   return (
@@ -59,13 +85,22 @@ export function SignInForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="username">Имя пользователя</Label>
-            <Input
-              id="username"
-              placeholder="p.molchanov"
-              {...register('username', { required: 'Введите имя пользователя' })}
-              error={errors.username?.message}
-            />
+            <Label htmlFor="username">Логин</Label>
+            <div className="relative">
+              <Input
+                id="username"
+                placeholder="p.molchanov"
+                {...register('username', { required: 'Введите логин' })}
+                error={errors.username?.message}
+                className="pr-28"
+              />
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <span className="text-sm text-gray-400 font-mono">{COMPANY_DOMAIN}</span>
+              </div>
+            </div>
+            <p className="text-xs text-gray-500">
+              Введите только логин, домен <code className="bg-gray-100 px-1 rounded">{COMPANY_DOMAIN}</code> добавится автоматически
+            </p>
           </div>
           
           <div className="space-y-2">
@@ -86,9 +121,9 @@ export function SignInForm() {
           <Button
             type="submit"
             className="w-full"
-            disabled={isLoading}
+            disabled={loginMutation.isPending}
           >
-            {isLoading ? 'Выполняется вход...' : 'Войти'}
+            {loginMutation.isPending ? 'Выполняется вход...' : 'Войти'}
           </Button>
         </div>
       </form>

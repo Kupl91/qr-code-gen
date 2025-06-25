@@ -1,6 +1,7 @@
 import "./globals.css"
 import { AppProviders } from '@/app/providers'
 import { factFont, geistSans, geistMono } from '@/shared/config/fonts'
+import { Toaster } from 'sonner'
 
 export default function RootLayout({
   children,
@@ -13,6 +14,7 @@ export default function RootLayout({
         className={`${factFont.variable} ${geistSans.variable} ${geistMono.variable} font-fact antialiased`}
       >
         <AppProviders>{children}</AppProviders>
+        <Toaster position="top-right" />
       </body>
     </html>
   )

@@ -15,7 +15,7 @@ import { QRCode } from '@jackybaby/react-custom-qrcode'
 import { useDownloadQR } from "@/shared/lib/hooks"
 import type { QRCodePreviewProps } from '../../api/types'
 import { useEffect, useState } from 'react'
-import { Avatar, AvatarFallback } from "@/shared/ui/avatar"
+import { UserAvatar } from "@/shared/ui/avatar"
 import { cn } from "@/shared/lib/utils"
 import { Download, MoreVertical, Globe } from "lucide-react"
 import {
@@ -92,25 +92,25 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
   return (
     <div className={cn(
       "w-full",
-      "h-screen",
+      "min-h-screen",
       "relative",
       "flex flex-col",
-      "pt-[48px]",
-      "pb-[24px]",
-      "sm:pt-[64px]",
-      "overflow-hidden",
+      "pt-[16px]",
+      "pb-[16px]",
+      "sm:pt-[24px]",
+      "sm:pb-[24px]",
     )}>
       <div className={cn(
         "w-full",
-        "h-full",
+        "flex-1",
         "px-2",
         "mx-auto",
         "sm:px-6",
         "md:px-0",
         "md:max-w-[580px]",
         "flex flex-col",
-        "justify-between",
-        "pt-[24px]",
+        "justify-center",
+        "gap-4",
       )}>
         <Card className={cn(
           "w-full",
@@ -122,14 +122,13 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
           "overflow-visible",
           "relative",
           "flex flex-col",
-          "pb-4",
         )}>
           <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 z-10">
-            <Avatar className="h-[64px] w-[64px]">
-              <AvatarFallback className="text-[24px]">
-                {`${data.firstname[0]}${data.lastname[0]}`.toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
+            <UserAvatar 
+              fullname={data.fullname} 
+              photo={data.photo} 
+              className="h-[64px] w-[64px] text-[24px]"
+            />
           </div>
 
           <div className={cn(
@@ -138,8 +137,8 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
             "pt-[32px]",
             "px-4",
             "sm:px-8",
-            "gap-[8px]",
-            "sm:gap-[16px]",
+            "gap-[12px]",
+            "pb-4",
           )}>
             <div className="text-center">
               <div className={cn(
@@ -149,7 +148,7 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
                 "text-[rgb(36,36,43)]",
                 "mb-[4px]"
               )}>
-                {data.firstname} {data.lastname}
+                {data.fullname}
               </div>
               <div className={cn(
                 "text-[20px]",
@@ -178,8 +177,6 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
           "px-2",
           "sm:px-6",
           "md:px-0",
-          "mt-auto",
-          "pb-2",
         )}>
           <div className="flex gap-2">
             <Button 
@@ -196,7 +193,6 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
                 "text-white",
                 "rounded-[8px]",
                 "shadow-sm",
-                "mt-4",
               )}
             >
               Редактировать личные данные
@@ -204,7 +200,7 @@ export function QRCodePreview({ value, data, onEdit }: QRCodePreviewProps) {
             
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-[44px] w-[44px] p-0 mt-4">
+                <Button variant="ghost" size="icon" className="h-[44px] w-[44px] p-0">
                   <MoreVertical className="h-5 w-5 text-[#4855CB]" />
                 </Button>
               </DropdownMenuTrigger>

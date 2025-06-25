@@ -1,12 +1,9 @@
 import { z } from 'zod'
 
 export const workerSchema = z.object({
-  firstname: z.string()
+  fullname: z.string()
     .min(2, 'Минимум 2 символа')
-    .max(50, 'Максимум 50 символов'),
-  lastname: z.string()
-    .min(2, 'Минимум 2 символа')
-    .max(50, 'Максимум 50 символов'),
+    .max(100, 'Максимум 100 символов'),
   organization: z.string()
     .min(2, 'Минимум 2 символа')
     .max(100, 'Максимум 100 символов'),

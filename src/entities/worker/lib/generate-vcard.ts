@@ -14,8 +14,7 @@ import { WorkerDTO } from "../api/types"
  * 
  * @example
  * const workerData = {
- *   firstname: "Иван",
- *   lastname: "Иванов",
+ *   fullname: "Иванов Иван Иванович",
  *   position: "Разработчик",
  *   // ...остальные поля
  * }
@@ -23,8 +22,7 @@ import { WorkerDTO } from "../api/types"
  */
 export function generateVCard(data: WorkerDTO): string {
   const {
-    firstname,
-    lastname,
+    fullname,
     position,
     organization,
     phoneWork,
@@ -33,17 +31,37 @@ export function generateVCard(data: WorkerDTO): string {
     website
   } = data
 
+  // Разбираем полное имя на компоненты для поля N
+  const nameParts = fullname.trim().split(' ')
+  let lastName = ''
+  let firstName = ''
+  let middleName = ''
+
+  if (nameParts.length >= 3) {
+    // Формат: "Фамилия Имя Отчество"
+    lastName = nameParts[0]
+    firstName = nameParts[1]
+    middleName = nameParts[2]
+  } else if (nameParts.length === 2) {
+    // Формат: "Фамилия Имя"
+    lastName = nameParts[0]
+    firstName = nameParts[1]
+  } else if (nameParts.length === 1) {
+    // Только одно слово - считаем именем
+    firstName = nameParts[0]
+  }
+
   const vCard = [
     'BEGIN:VCARD',
     'VERSION:3.0',
-    `N:${lastname};${firstname};;;`,
-    `FN:${firstname} ${lastname}`,
+    `N:${lastName};${firstName};${middleName};;`, // Структурированное имя: Фамилия;Имя;Отчество;Префикс;Суффикс
+    `FN:${fullname}`, // Отображаемое полное имя
     `ORG:${organization}`,
     `TITLE:${position}`,
     `TEL;TYPE=WORK:${phoneWork}`,
     phoneMobile ? `TEL;TYPE=CELL:${phoneMobile}` : '',
     `EMAIL:${email}`,
-    `URL:${website}`,
+    website ? `URL:${website}` : '',
     'END:VCARD'
   ]
     .filter(Boolean)

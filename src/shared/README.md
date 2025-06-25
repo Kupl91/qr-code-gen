@@ -127,10 +127,10 @@
   - Request/Response types
   - Entity types
 
-### Mocks
-- Mock data
-  - Тестовые данные
-  - Демо контент
-- Mock API
-  - Response имитация
-  - Error cases 
+### API Integration
+- Реальные данные из корпоративного бэкенда
+  - Данные пользователя из AD
+  - Cookie-based аутентификация
+- TanStack Query для кэширования
+  - Автоматическая ревалидация
+  - Error handling 

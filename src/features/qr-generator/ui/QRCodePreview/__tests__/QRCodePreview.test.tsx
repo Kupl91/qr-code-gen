@@ -1,110 +1,97 @@
 import '@testing-library/jest-dom'
 import { render, screen, fireEvent, act } from '@testing-library/react'
 import { QRCodePreview } from '../QRCodePreview'
-import { mockWorkerData } from '@/shared/api/mocks/worker'
+import { WorkerDTO } from '@/entities/worker'
 import { useDownloadQR } from '@/shared/lib/hooks/useDownloadQr'
 
-// Мокаем QR-код компонент полностью
+// Тестовые данные для проверки
+const testWorkerData: WorkerDTO = {
+  fullname: 'Тестов Тест Тестович',
+  organization: 'Test Organization',
+  position: 'Test Position',
+  email: 'test@example.com',
+  phoneWork: '+1234567890',
+  phoneMobile: '+0987654321',
+  website: 'https://test.com'
+}
+
+// Мокаем QRCode компонент
 jest.mock('@jackybaby/react-custom-qrcode', () => ({
-  QRCode: ({ value, options }: { value: string; options?: QRCodeOptions }) => (
+  QRCode: ({ value }: { value: string }) => (
     <div data-testid="qr-code" data-value={value}>
-      <canvas id="qr-code-canvas" />
       QR Code Mock
     </div>
   )
 }))
 
-jest.mock('@/shared/lib/hooks/useDownloadQr', () => ({
-  useDownloadQR: jest.fn()
+// Мокаем useDownloadQR хук
+jest.mock('@/shared/lib/hooks/useDownloadQR', () => ({
+  useDownloadQR: () => ({
+    downloadAsImage: jest.fn(),
+    downloadAsPDF: jest.fn(),
+    isDownloading: false
+  })
 }))
-
-interface QRCodeOptions {
-  width: number;
-  height: number;
-  type: string;
-  quality: number;
-  margin: number;
-  color: {
-    dark: string;
-    light: string;
-  };
-}
 
 describe('QRCodePreview', () => {
   const mockOnEdit = jest.fn()
-  const mockDownloadQR = jest.fn()
-  
-  beforeEach(() => {
-    (useDownloadQR as jest.Mock).mockReturnValue({
-      downloadQRCode: mockDownloadQR
-    })
-  })
+  const mockValue = 'test-vcard-data'
 
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  it('отображает информацию о работнике', async () => {
-    await act(async () => {
-      render(
-        <QRCodePreview
-          value="BEGIN:VCARD..."
-          data={mockWorkerData}
-          onEdit={mockOnEdit}
-        />
-      )
-    })
-
-    expect(screen.getByText(new RegExp(mockWorkerData.firstname))).toBeInTheDocument()
-    expect(screen.getByText(new RegExp(mockWorkerData.lastname))).toBeInTheDocument()
-  })
-
-  it('вызывает функцию скачивания при клике на QR-код', () => {
+  it('renders worker data correctly', () => {
     render(
       <QRCodePreview
-        value="BEGIN:VCARD..."
-        data={mockWorkerData}
+        value={mockValue}
+        data={testWorkerData}
+        onEdit={mockOnEdit}
+      />
+    )
+
+    expect(screen.getByText(new RegExp(testWorkerData.fullname))).toBeInTheDocument()
+  })
+
+  it('calls onEdit when edit button is clicked', () => {
+    render(
+      <QRCodePreview
+        value={mockValue}
+        data={testWorkerData}
+        onEdit={mockOnEdit}
+      />
+    )
+
+    const editButton = screen.getByRole('button', { name: /редактировать/i })
+    fireEvent.click(editButton)
+
+    expect(mockOnEdit).toHaveBeenCalledTimes(1)
+  })
+
+  it('renders QR code with correct value', () => {
+    render(
+      <QRCodePreview
+        value={mockValue}
+        data={testWorkerData}
         onEdit={mockOnEdit}
       />
     )
 
     const qrCode = screen.getByTestId('qr-code')
-    fireEvent.click(qrCode)
-    
-    expect(mockDownloadQR).toHaveBeenCalledWith('qr-code-canvas')
+    expect(qrCode).toHaveAttribute('data-value', mockValue)
   })
 
-  it('вызывает onEdit при клике на кнопку редактирования', () => {
+  it('displays worker information correctly', () => {
     render(
       <QRCodePreview
-        value="BEGIN:VCARD..."
-        data={mockWorkerData}
+        value={mockValue}
+        data={testWorkerData}
         onEdit={mockOnEdit}
       />
     )
 
-    const editButton = screen.getByText('Редактировать')
-    fireEvent.click(editButton)
-    
-    expect(mockOnEdit).toHaveBeenCalled()
-  })
-
-  it('загружает логотип при монтировании', () => {
-    const mockImage = {
-      onload: null,
-      src: ''
-    }
-    
-    global.Image = jest.fn().mockImplementation(() => mockImage)
-    
-    render(
-      <QRCodePreview
-        value="BEGIN:VCARD..."
-        data={mockWorkerData}
-        onEdit={mockOnEdit}
-      />
-    )
-
-    expect(mockImage.src).toBe('/main-logo.svg')
+    expect(screen.getByText(testWorkerData.position)).toBeInTheDocument()
+    expect(screen.getByText(testWorkerData.organization)).toBeInTheDocument()
+    expect(screen.getByText(testWorkerData.email)).toBeInTheDocument()
   })
 }) 
